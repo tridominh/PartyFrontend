@@ -1,0 +1,71 @@
+.login-card{
+
+  width: 400px;
+  border:none;
+
+}
+
+.login-btr{
+
+  border-top-right-radius: 5px !important;
+}
+
+
+.login-btl{
+
+  border-top-left-radius: 5px !important;
+}
+
+.login-btn-dark {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+.login-btn-dark:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+.login-nav-pills{
+
+  display:table !important;
+  width:100%;
+}
+
+.login-nav-pills .nav-link {
+    border-radius: 0px;
+        border-bottom: 1px solid #0d6efd40;
+
+}
+
+.login-nav-item{
+      display: table-cell;
+       background: #0d6efd2e;
+}
+
+
+.login-form{
+
+  padding: 10px;
+      height: 300px;
+}
+
+.login-form input{
+
+  margin-bottom: 12px;
+  border-radius: 3px;
+}
+
+
+.login-form input:focus{
+  box-shadow: none;
+}
+
+
+.login-form button{
+  margin-top: 20px;
+}

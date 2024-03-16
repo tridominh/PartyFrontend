@@ -34,5 +34,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "react-notifications": "^1.7.4",
+    "react-owl-carousel": "^2.3.3",
+    "react-router-dom": "^6.21.3",
+    "sweetalert2": "^11.10.6",
+    "sweetalert2-react-content": "^5.0.7"
   }
 }
