@@ -51,8 +51,8 @@ function Login({ setToken }) {
     const handleSubmit = async e => {
         e.preventDefault();
         const user = await loginUser({
-          email,
-          password
+           email,
+           password
         });
         if(!user) return; 
         setToken(user.token);
@@ -133,7 +133,7 @@ function Login({ setToken }) {
                   
                   <div className="login-form form px-4 pt-5">
                     <form onSubmit={handleSubmit}>
-                    <input type="text" name="" className="form-control" placeholder="Email or Phone" onChange={(e) => setEmail(e.target.value)}/>
+                    <input type="text" name="" className="form-control" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
 
                     <input type="password" name="" className="form-control" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                     {errorMessage && <div className='text-danger'>{errorMessage}</div>}

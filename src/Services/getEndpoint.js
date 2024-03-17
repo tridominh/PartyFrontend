@@ -1,3 +1,3 @@
 export default function getEndpoint() {
-    return "http://localhost:5176";
+    return "https://localhost:7242";
 }
