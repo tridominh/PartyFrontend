@@ -18,6 +18,7 @@ export default function Package() {
                 setAllPackages(allPackages);
             } catch (e) {
                 setError(e);
+                console.log(e);
             } finally {
                 setIsLoading(false);
             }
@@ -26,13 +27,6 @@ export default function Package() {
         fetchAllPackages();
     }, []);
 
-    if (isLoading) {
-        <LoadingSpinner />;
-    }
-
-    if (error) {
-        return <div>Something went wrong !!! Please try again</div>;
-    }
     if (allPackages.length == 0) {
         return (
             <Fragment>
