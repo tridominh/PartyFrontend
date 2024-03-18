@@ -18,12 +18,13 @@ import VegetarianMenu from "./Pages/VegetarianMenu";
 import PrivateRoute from "./Services/PrivateRoute";
 import parseJwt from "./Services/parseJwt";
 import AdminBooking from "./AdminPages/Booking";
-import AdminPackage from "./AdminPages/Package";
 import ConfirmBooking from "./HostPages/ConfirmBooking";
 import Room from "./Pages/Room";
 import HostPayment from "./HostPages/HostPayment";
 import Payment from "./Pages/Payment";
 import MyBooking from "./Pages/MyBooking";
+import AdminRoom from "./AdminPages/AdminRoom";
+import EditRoom from "./AdminPages/EditRoom";
 import PaymentComplete from "./Pages/PaymentCompleted";
 import CreatePackageForm from "./AdminPages/CreatePackageForm";
 
@@ -85,6 +86,17 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
+                    <Route
+                        path="admin/room"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <AdminRoom />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route path="admin/edit-room" element={<EditRoom />}>
+                        <Route path=":id" element={<EditRoom />} />
+                    </Route>
                     {/*Host pages*/}
                     <Route
                         path="host/confirm-booking"
@@ -102,11 +114,10 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
-
-                    <Route path="*" element={<NotFound />} />
                     <Route path="kidsMenu" element={<KidsMenu />} />
                     <Route path="normalMenu" element={<NormalMenu />} />
                     <Route path="vegetarianMenu" element={<VegetarianMenu />} />
+                    <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route path="login" element={<Login setToken={setToken} />} />
             </Routes>

@@ -4,7 +4,7 @@ import PageHeader from '../Components/PageHeader';
 import useToken from '../Services/useToken';
 import "../assets/css/customer-booking.css"
 import GetAllPackages from '../Services/ApiServices/PackageServices';
-import GetAllRooms from '../Services/ApiServices/RoomServices';
+import {GetAllRooms} from '../Services/ApiServices/RoomServices';
 import { CreateBooking } from '../Services/ApiServices/BookingServices';
 import NotFound from './NotFound';
 import RoomCarousel from '../Components/RoomCarousel';

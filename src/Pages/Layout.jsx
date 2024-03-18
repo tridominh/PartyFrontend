@@ -128,6 +128,12 @@ function Layout({ token, removeToken, role }) {
                                         Packages
                                     </Link>
                                     <Link to="/admin/create-package"></Link>
+                                    <Link
+                                        to="/admin/room"
+                                        className="nav-item nav-link"
+                                    >
+                                        Rooms
+                                    </Link>
                                 </Fragment>
                             )}
 
