@@ -24,6 +24,7 @@ import Room from './Pages/Room';
 import HostPayment from './HostPages/HostPayment';
 import Payment from './Pages/Payment';
 import MyBooking from './Pages/MyBooking';
+import Service from './Pages/Service';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="about" element={<About/>} />
           <Route path="room" element={<Room/>} />
           <Route path="package" element={<Package/>} />
+          <Route path="service" element={<Service/>} />
           <Route path="booking" element={<Booking />} >
             <Route path=":id" element={<Booking />} />
           </Route>
