@@ -27,6 +27,7 @@ import MyBooking from './Pages/MyBooking';
 import AdminRoom from './AdminPages/AdminRoom';
 import EditRoom from './AdminPages/EditRoom';
 import PaymentComplete from "./Pages/PaymentCompleted";
+import CreateRoom from "./AdminPages/CreateRoom";
 
 
 export default function App() {
@@ -65,6 +66,11 @@ export default function App() {
           <Route path="admin/room" element={
             <PrivateRoute role="Admin">
               <AdminRoom/>
+            </PrivateRoute>}
+          />
+          <Route path="admin/create-room" element={
+            <PrivateRoute role="Admin">
+              <CreateRoom/>
             </PrivateRoute>}
           />
           <Route path="admin/edit-room" element={<EditRoom/>}>

@@ -14,6 +14,20 @@ async function GetAllRooms() {
     return res;
 }
 
+async function CreateRoom(room) {
+    //console.log(JSON.stringify(credentials))
+    const res = await fetch(`${getEndpoint()}/api/Room/CreateRoom`, {
+        method: 'POST',
+        headers: {
+            "accept": "application/json",
+            "Content-Type": "application/json"
+            //"Authorization": `Bearer ${useToken().token}`,
+        },
+        body:JSON.stringify(room)
+    });
+    return res;
+}
+
 async function GetRoomById(id) {
     //console.log(JSON.stringify(credentials))
     const res = await fetch(`${getEndpoint()}/api/Room/GetRoomById?id=${id}`, {
@@ -40,4 +54,16 @@ async function UpdateRoom(room) {
     return res;
 }
 
-export { GetAllRooms, GetRoomById, UpdateRoom};
+async function DeleteRoom(id) {
+    //console.log(JSON.stringify(credentials))
+    const res = await fetch(`${getEndpoint()}/api/Room/DeleteRoom?id=${id}`, {
+        method: 'DELETE',
+        headers: {
+            "accept": "text/plain",
+            // "Authorization": `Bearer ${useToken().token}`,
+        },
+    });
+    return res;
+}
+
+export { GetAllRooms, GetRoomById, UpdateRoom, DeleteRoom, CreateRoom};

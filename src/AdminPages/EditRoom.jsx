@@ -35,11 +35,7 @@ function EditRoom() {
           }
     }
     , [room])
-  
-    
-    
-    //const description = document.getElementById("description").getAttribute("value");
-    
+      
     const handleUpdateRoom = async (event) => {
       event.preventDefault();
       
@@ -67,10 +63,10 @@ function EditRoom() {
         setRoom(updatedRoomData);
         setIsUpdating(false); 
         alert("Room updated successfully!"); 
-        navigate("/rooms"); 
+        navigate("/admin/room"); 
       } catch (error) {
         setIsUpdating(false); 
-        console.error("Error updating room:", error);
+        console.error("Error updating rboom:", error);
         alert("An error occurred. Please try again later."); 
       }
     };
@@ -81,7 +77,7 @@ function EditRoom() {
   
     return (
       <Fragment>
-        <PageHeader title1="Admin" title2="Edit Room" />
+        <PageHeader title1="Admin" title="Edit Room" />
         {room ? (
           <div className="edit-room-container">
             <h2>Edit Room Details</h2>
