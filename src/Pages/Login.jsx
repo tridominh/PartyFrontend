@@ -21,7 +21,6 @@ function Login({ setToken }) {
     const [errorMessageRegister, setErrorMessageRegister] = useState("");
 
     async function loginUser(credentials) {
-        //console.log(JSON.stringify(credentials))
         setIsLoading(true);
         let res;
         try {
@@ -35,23 +34,19 @@ function Login({ setToken }) {
             // Handle successful response data
             setErrorMessage("");
             setIsLoading(false);
-            // const data = await res.json();
-            // process the data as needed
         } catch (err) {
             setErrorMessage(err.message);
             setIsLoading(false);
             return;
-            // Handle errors
         }
-        //console.log(await res.json());
         return await res.json();
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const user = await loginUser({
-            email,
-            password,
+           email,
+           password
         });
         if (!user) return;
         setToken(user.token);
@@ -67,7 +62,6 @@ function Login({ setToken }) {
     };
 
     async function registerUser(credentials) {
-        //console.log(JSON.stringify(credentials))
         setIsLoading(true);
         let res;
         try {
@@ -81,15 +75,11 @@ function Login({ setToken }) {
             // Handle successful response data
             setErrorMessageRegister("");
             setIsLoading(false);
-            // const data = await res.json();
-            // process the data as needed
         } catch (err) {
             setErrorMessageRegister(err.message);
             setIsLoading(false);
             return;
-            // Handle errors
         }
-        //console.log(await res.json());
         return await res.json();
     }
 
@@ -202,7 +192,6 @@ function Login({ setToken }) {
                                             setNameRegister(e.target.value)
                                         }
                                     />
-
                                     <input
                                         type="text"
                                         name=""
@@ -212,9 +201,6 @@ function Login({ setToken }) {
                                             setEmailRegister(e.target.value)
                                         }
                                     />
-
-                                    {/*<input type="text" name="" className="form-control" placeholder="Phone" onChange={(e) => e.setPass}/>*/}
-
                                     <input
                                         type="password"
                                         name=""
@@ -224,13 +210,15 @@ function Login({ setToken }) {
                                             setPasswordRegister(e.target.value)
                                         }
                                     />
-
                                     {errorMessageRegister && (
                                         <div className="text-danger">
                                             {errorMessageRegister}
                                         </div>
                                     )}
-                                    <button className="btn login-btn-dark btn-dark btn-block">
+                                    <button
+                                        className="btn login-btn-dark btn-dark btn-block"
+                                        type="submit"
+                                    >
                                         Signup
                                     </button>
                                 </form>

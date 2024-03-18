@@ -53,6 +53,7 @@ function Layout({ token, removeToken, role }) {
                         <Fragment>
                             <Link to="/admin/booking" className="nav-item nav-link active">Booking</Link>
                             <Link to="/admin/package" className="nav-item nav-link">Packages</Link>
+                            <Link to="/admin/room" className="nav-item nav-link">Rooms</Link>
                         </Fragment>   
                         )}
                         
