@@ -1,13 +1,13 @@
-import React, {  useEffect, useState } from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Pages/Layout";
 import Home from "./Pages/Home";
 import Booking from "./Pages/Booking";
 import NotFound from "./Pages/NotFound";
-import Login from './Pages/Login';
+import Login from "./Pages/Login";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from './Services/useToken';
 import About from './Pages/About';
@@ -26,6 +26,8 @@ import Payment from './Pages/Payment';
 import MyBooking from './Pages/MyBooking';
 import AdminRoom from './AdminPages/AdminRoom';
 import EditRoom from './AdminPages/EditRoom';
+import PaymentComplete from "./Pages/PaymentCompleted";
+
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -45,9 +47,10 @@ export default function App() {
             <Route path=":id" element={<Booking />} />
           </Route>
           <Route path="my-booking" element={<MyBooking/>} />
-          <Route path="payment" element={<Payment/>}>
-            <Route path=":id" element={<Payment />} />
-          </Route>
+          <Route path="payment" element={<Payment />}>
+                        <Route path=":payType/:id" element={<Payment />} />
+                    </Route>
+                    <Route path="payment-completed" element={<PaymentComplete/>} />
           {/*Admin pages*/}
           <Route path="admin/booking" element={
             <PrivateRoute role="Admin">
@@ -90,7 +93,7 @@ export default function App() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
