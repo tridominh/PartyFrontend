@@ -1,27 +1,47 @@
 import React, { Fragment, useState, useEffect } from "react";
 import PageHeader from "../Components/PageHeader";
 import GetAllPackages from "../Services/ApiServices/PackageServices";
+import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function Package() {
+    const [error, setError] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const [allPackages, setAllPackages] = useState([]);
 
     useEffect(() => {
+        setIsLoading(true);
+
         const fetchAllPackages = async () => {
-            const response = await GetAllPackages();
-            const allPackages = await response.json();
-            setAllPackages(allPackages);
+            try {
+                const response = await GetAllPackages();
+                const allPackages = await response.json();
+                setAllPackages(allPackages);
+            } catch (e) {
+                setError(e);
+            } finally {
+                setIsLoading(false);
+            }
         };
 
         fetchAllPackages();
     }, []);
 
+    if (isLoading) {
+        <LoadingSpinner />;
+    }
+
+    if (error) {
+        return <div>Something went wrong !!! Please try again</div>;
+    }
     if (allPackages.length == 0) {
         return (
             <Fragment>
                 <PageHeader title1="Page" title={"Package List"} />
-                <h2>Package List</h2>
+                <h2 className="text-center">Package List</h2>
 
-                <table></table>
+                <div className="col-12">
+                    <p>No packages found</p>
+                </div>
             </Fragment>
         );
     }
@@ -29,8 +49,7 @@ export default function Package() {
     return (
         <Fragment>
             <PageHeader title1="Page" title={"Package List"} />
-            <h2>Package List</h2>
-
+            <h2 className="text-center">Package List</h2>
             <table className="table">
                 <thead>
                     <tr className="table-primary">
@@ -38,7 +57,6 @@ export default function Package() {
                         <th>Package Type</th>
                     </tr>
                 </thead>
-
                 <tbody>
                     {allPackages.map((pkg) => {
                         return (
