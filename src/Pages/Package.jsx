@@ -73,10 +73,7 @@ function Package() {
                 </tbody>
             </table>
 
-            <CreateButton
-                link="../AdminPages/CreatePackage"
-                something="Package"
-            />
+            <CreateButton link="/admin/create-package" something="Package" />
         </Fragment>
     );
 }

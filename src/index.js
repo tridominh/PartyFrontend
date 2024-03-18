@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -24,8 +24,8 @@ import Room from "./Pages/Room";
 import HostPayment from "./HostPages/HostPayment";
 import Payment from "./Pages/Payment";
 import MyBooking from "./Pages/MyBooking";
-import CreatePackage from "./AdminPages/CreatePackage";
 import PaymentComplete from "./Pages/PaymentCompleted";
+import CreatePackageForm from "./AdminPages/CreatePackageForm";
 
 export default function App() {
     const { token, setToken, removeToken } = useToken();
@@ -73,7 +73,7 @@ export default function App() {
                         path="admin/package"
                         element={
                             <PrivateRoute role="Admin">
-                                <AdminPackage />
+                                <Package />
                             </PrivateRoute>
                         }
                     />
@@ -81,7 +81,7 @@ export default function App() {
                         path="admin/create-package"
                         element={
                             <PrivateRoute role="Admin">
-                                <CreatePackage />
+                                <CreatePackageForm />
                             </PrivateRoute>
                         }
                     />
