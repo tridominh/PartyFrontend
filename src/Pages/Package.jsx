@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import PageHeader from "../Components/PageHeader";
 import GetAllPackages from "../Services/ApiServices/PackageServices";
 import LoadingSpinner from "../Components/LoadingSpinner";
-import CreateButton from "../Components/CreateButton";
+import CreateButton from "../Components/LinkButton";
 import { useNavigate } from "react-router-dom";
 
 function Package() {
@@ -73,7 +73,7 @@ function Package() {
                 </tbody>
             </table>
 
-            <CreateButton link="/admin/create-package" something="Package" />
+            <CreateButton link="/admin/create-package" text="Create Package" />
         </Fragment>
     );
 }

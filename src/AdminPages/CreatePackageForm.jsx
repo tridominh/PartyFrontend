@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import CreateButton from "../Components/CreateButton";
+import CreateButton from "../Components/LinkButton";
 import PageHeader from "../Components/PageHeader";
 import { CreatePackage } from "../Services/ApiServices/PackageServices";
 
@@ -11,16 +11,13 @@ export default function CreatePackageForm() {
         e.preventDefault();
 
         const createDto = {
-            packageName,
-            packageType,
+            packageName: packageName,
+            packageType: packageType,
         };
 
         console.log(createDto);
 
-        const response = await CreatePackage(createDto).then(
-            console.log("New Package added")
-        );
-        console.log(response);
+        const response = await CreatePackage(createDto);
     };
 
     return (
@@ -54,7 +51,9 @@ export default function CreatePackageForm() {
                     />
                 </div>
 
-                <CreateButton link="/admin/package" something="Package" />
+                <button type="submit" className="btn btn-primary">
+                    Create
+                </button>
             </form>
         </Fragment>
     );
