@@ -24,6 +24,8 @@ import Room from './Pages/Room';
 import HostPayment from './HostPages/HostPayment';
 import Payment from './Pages/Payment';
 import MyBooking from './Pages/MyBooking';
+import AdminRoom from './AdminPages/AdminRoom';
+import EditRoom from './AdminPages/EditRoom';
 
 export default function App() {
   const { token, setToken, removeToken } = useToken();
@@ -57,6 +59,14 @@ export default function App() {
               <AdminPackage/>
             </PrivateRoute>}
           />
+          <Route path="admin/room" element={
+            <PrivateRoute role="Admin">
+              <AdminRoom/>
+            </PrivateRoute>}
+          />
+          <Route path="admin/edit-room" element={<EditRoom/>}>
+            <Route path=":id" element={<EditRoom />} />
+          </Route>
           {/*Host pages*/}
           <Route path="host/confirm-booking" element={
             <PrivateRoute role="Host">
@@ -68,10 +78,10 @@ export default function App() {
               <HostPayment/>
             </PrivateRoute>}
           />
-          <Route path="*" element={<NotFound />} />
           <Route path='kidsMenu' element={<KidsMenu />} />
           <Route path='normalMenu' element={<NormalMenu />} />
           <Route path='vegetarianMenu' element={<VegetarianMenu />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path='login' element={<Login setToken={setToken} 
               />}/>

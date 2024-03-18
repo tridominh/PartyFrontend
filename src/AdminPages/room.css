@@ -18,3 +18,23 @@
     color: #ffffff;
     background: #719a0a;
 }
+
+.create-room-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.create-room-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100px;
+}
+
+.create-room-btn a  {
+    display: inline-block;
+    width: 180px; 
+    height: 100px;
+    text-align: center; 
+    line-height: 80px
+}
