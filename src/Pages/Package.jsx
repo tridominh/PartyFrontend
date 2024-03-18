@@ -5,10 +5,9 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 import CreateButton from "../Components/CreateButton";
 import { useNavigate } from "react-router-dom";
 
-export default function Package() {
-    const [error, setError] = useState();
+function Package() {
     const [isLoading, setIsLoading] = useState(false);
-    const [allPackages, setAllPackages] = useState([]);
+    const [packages, setPackages] = useState([]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -16,10 +15,9 @@ export default function Package() {
         const fetchAllPackages = async () => {
             try {
                 const response = await GetAllPackages();
-                const allPackages = await response.json();
-                setAllPackages(allPackages);
+                const packages = await response.json();
+                setPackages(packages);
             } catch (e) {
-                setError(e);
                 console.log(e);
             } finally {
                 setIsLoading(false);
@@ -29,8 +27,7 @@ export default function Package() {
         fetchAllPackages();
     }, []);
 
-    const navigate = useNavigate();
-    if (allPackages.length == 0) {
+    if (packages.length == 0) {
         return (
             <Fragment>
                 <PageHeader title1="Page" title={"Package List"} />
@@ -45,21 +42,31 @@ export default function Package() {
 
     return (
         <Fragment>
-            <PageHeader title1="Page" title={"Package List"} />
-            <h2 className="text-center">Package List</h2>
-            <table className="table">
+            <PageHeader title={"Package"} />
+            <table className="table host-table ">
                 <thead>
-                    <tr className="table-primary">
-                        <th>Package Name</th>
-                        <th>Package Type</th>
+                    <tr>
+                        {/* <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Room</th>
+                        <th scope="col">Party Time</th>
+                        <th scope="col">Party End Time</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th> */}
+                        <th scope="col">#</th>
+                        <th scope="col">Package Name</th>
+                        <th scope="col">Package Type</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {allPackages.map((pkg) => {
+                    {packages.map((item) => {
                         return (
-                            <tr className="table-warning" key={pkg.packageId}>
-                                <td>{pkg.packageName}</td>
-                                <td>{pkg.packageType}</td>
+                            <tr>
+                                <td>{item.packageId}</td>
+                                <td>{item.packageName}</td>
+                                <td>{item.packageType}</td>
                             </tr>
                         );
                     })}
@@ -67,9 +74,11 @@ export default function Package() {
             </table>
 
             <CreateButton
-                link="../HostPages/CreatePackage"
+                link="../AdminPages/CreatePackage"
                 something="Package"
             />
         </Fragment>
     );
 }
+
+export default Package;

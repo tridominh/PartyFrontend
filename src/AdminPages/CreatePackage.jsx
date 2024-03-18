@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from "react";
 import CreateButton from "../Components/CreateButton";
+import PageHeader from "../Components/PageHeader";
+import Package from "../Pages/Package";
 
 export default function CreatePackage() {
     const [packageName, setPackageName] = useState("");
@@ -16,6 +18,7 @@ export default function CreatePackage() {
 
     return (
         <Fragment>
+            <PageHeader title="Create Package" />
             <h2 className="text-center">Create New Package</h2>
 
             <form action="">
