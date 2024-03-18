@@ -1,51 +1,66 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import PageHeader from '../Components/PageHeader';
-import GetAllPackages from '../Services/ApiServices/PackageServices';
+import React, { Fragment, useState, useEffect } from "react";
+import PageHeader from "../Components/PageHeader";
+import GetAllPackages from "../Services/ApiServices/PackageServices";
+import LoadingSpinner from "../Components/LoadingSpinner";
+import CreateButton from "../Components/LinkButton";
+import { useNavigate } from "react-router-dom";
 
-function Package(){
+function Package() {
+    const [isLoading, setIsLoading] = useState(false);
     const [packages, setPackages] = useState([]);
-    let navigate = useNavigate();
-
-    const fetchPackages = async () => {
-        const data = await GetAllPackages();
-        const json = await data.json();
-        //console.log(json);
-        setPackages(json);
-    }
 
     useEffect(() => {
-        fetchPackages();
-    }, [])
+        setIsLoading(true);
 
-    if(packages.length == 0){
+        const fetchAllPackages = async () => {
+            try {
+                const response = await GetAllPackages();
+                const packages = await response.json();
+                setPackages(packages);
+            } catch (e) {
+                console.log(e);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchAllPackages();
+    }, []);
+
+    if (packages.length == 0) {
         return (
             <Fragment>
-                <PageHeader title={"Package"}/>
-                <div>No Packages</div>
+                <PageHeader title1="Page" title={"Package List"} />
+                <h2 className="text-center">Package List</h2>
+
+                <div className="col-12">
+                    <p>No packages found</p>
+                </div>
             </Fragment>
-        )
+        );
     }
-    
-    return( 
+
+    return (
         <Fragment>
-            <PageHeader title={"Package"}/>
-            <div>{JSON.stringify(packages)}</div>
-               <table className="table host-table ">
-                  <thead>
+            <PageHeader title={"Package"} />
+            <table className="table host-table ">
+                <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Room</th>
-                      <th scope="col">Party Time</th>
-                      <th scope="col">Party End Time</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Total Price</th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
+                        {/* <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Room</th>
+                        <th scope="col">Party Time</th>
+                        <th scope="col">Party End Time</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th> */}
+                        <th scope="col">#</th>
+                        <th scope="col">Package Name</th>
+                        <th scope="col">Package Type</th>
                     </tr>
-                  </thead>
-                  <tbody>
+                </thead>
+                <tbody>
                     {packages.map((item) => {
                         return (
                             <tr>
@@ -53,12 +68,12 @@ function Package(){
                                 <td>{item.packageName}</td>
                                 <td>{item.packageType}</td>
                             </tr>
-                        )
+                        );
                     })}
-                  </tbody>
-                </table>
- 
-            <div>Package</div>
+                </tbody>
+            </table>
+
+            <CreateButton link="/admin/create-package" text="Create Package" />
         </Fragment>
     );
 }
