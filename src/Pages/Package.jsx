@@ -2,6 +2,8 @@ import React, { Fragment, useState, useEffect } from "react";
 import PageHeader from "../Components/PageHeader";
 import GetAllPackages from "../Services/ApiServices/PackageServices";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import CreateButton from "../Components/CreateButton";
+import { useNavigate } from "react-router-dom";
 
 export default function Package() {
     const [error, setError] = useState();
@@ -27,6 +29,7 @@ export default function Package() {
         fetchAllPackages();
     }, []);
 
+    const navigate = useNavigate();
     if (allPackages.length == 0) {
         return (
             <Fragment>
@@ -62,6 +65,11 @@ export default function Package() {
                     })}
                 </tbody>
             </table>
+
+            <CreateButton
+                link="../HostPages/CreatePackage"
+                something="Package"
+            />
         </Fragment>
     );
 }

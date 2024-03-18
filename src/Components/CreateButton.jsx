@@ -1,10 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import CreatePackage from "../AdminPages/CreatePackage";
 
-export default function CreateButton() {
+export default function CreateButton({ link, something }) {
+    const navigate = useNavigate();
     return (
         <Link to={link}>
-            <button type="button" className="btn btn-primary">
+            <button
+                onClick={() => navigate(link)}
+                type="submit"
+                className="btn btn-primary"
+            >
                 Create {something}
             </button>
         </Link>

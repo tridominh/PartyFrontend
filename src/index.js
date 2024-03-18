@@ -24,6 +24,7 @@ import Room from "./Pages/Room";
 import HostPayment from "./HostPages/HostPayment";
 import Payment from "./Pages/Payment";
 import MyBooking from "./Pages/MyBooking";
+import CreatePackage from "./AdminPages/CreatePackage";
 
 export default function App() {
     const { token, setToken, removeToken } = useToken();
@@ -71,6 +72,10 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
+                    <Route
+                        path="admin/createpackage"
+                        element={<CreatePackage />}
+                    />
                     {/*Host pages*/}
                     <Route
                         path="host/confirm-booking"
@@ -88,6 +93,7 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
+
                     <Route path="*" element={<NotFound />} />
                     <Route path="kidsMenu" element={<KidsMenu />} />
                     <Route path="normalMenu" element={<NormalMenu />} />
