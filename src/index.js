@@ -26,6 +26,8 @@ import MyBooking from "./Pages/MyBooking";
 import AdminRoom from "./AdminPages/AdminRoom";
 import EditRoom from "./AdminPages/EditRoom";
 import PaymentComplete from "./Pages/PaymentCompleted";
+import CreateRoom from "./AdminPages/CreateRoom";
+
 import CreatePackageForm from "./AdminPages/CreatePackageForm";
 
 export default function App() {

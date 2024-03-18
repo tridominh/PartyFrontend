@@ -1,0 +1,50 @@
+
+.package-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .package-table th {
+    background-color: #262121;
+    padding: 10px;
+    text-align: left;
+    color: white;
+  }
+  
+  .package-table td {
+    border: 1px solid #010101;
+    padding: 8px;
+  }
+  
+  .delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    background-color: #d32f2f;
+  }
+  
+.confirm-delete-dialog {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  
+  .confirm-delete-dialog button:first-child {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .confirm-delete-dialog button:last-child {
+    background-color: #ccc;
+    color: black;
+  }
