@@ -9,7 +9,7 @@ function PaymentComplete() {
     return (
         <Fragment>
             <PageHeader title1="Payment" title={"Completed"}/>
-            <h3 className="text-center">Thank you for choosing us</h3>
+            <h3 className="text-center">Your payment has been completed</h3>
         </Fragment>
     );
 }
