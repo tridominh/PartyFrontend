@@ -99,6 +99,14 @@ export default function App() {
                     <Route path="admin/edit-room" element={<EditRoom />}>
                         <Route path=":id" element={<EditRoom />} />
                     </Route>
+                    <Route
+                        path="admin/create-room"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <CreateRoom/>
+                            </PrivateRoute>
+                        }
+                    />
                     {/*Host pages*/}
                     <Route
                         path="host/confirm-booking"
@@ -116,6 +124,7 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
+                    
                     <Route path="kidsMenu" element={<KidsMenu />} />
                     <Route path="normalMenu" element={<NormalMenu />} />
                     <Route path="vegetarianMenu" element={<VegetarianMenu />} />

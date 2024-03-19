@@ -46,10 +46,9 @@ async function UpdateRoom(room) {
         method: 'PUT',
         headers: {
             "accept": "text/plain",
-            "Content-Type": "application/json"
             // "Authorization": `Bearer ${useToken().token}`,
         },
-        body:JSON.stringify(room)
+        body:room
     });
     return res;
 }
