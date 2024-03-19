@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Packages } from "./PackagesData";
 import PageHeader from '../Components/PageHeader';
 import { PackageDisplay } from '../Components/PackageDisplay';
+import "../assets/css/kidsMenu.css"
 
-function Package(){
+function PackagesPage(){
     let navigate = useNavigate();
     const CheckLogin = () =>{
         if(localStorage.getItem("token") != null){
@@ -26,4 +27,4 @@ function Package(){
     );
 }
 
-export default Package;
+export default PackagesPage;
