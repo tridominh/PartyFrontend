@@ -1,11 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { Fragment, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import "./login.css";
-import LoadingSpinner from "../Components/LoadingSpinner";
-import LoginService from "../Services/ApiServices/LoginServices";
-import RegisterService from "../Services/ApiServices/RegisterServices";
-import parseJwt from "../Services/parseJwt";
+import LoadingSpinner from '../Components/LoadingSpinner';
+import LoginService from '../Services/ApiServices/LoginServices';
+import RegisterService from '../Services/ApiServices/RegisterServices';
+import parseJwt from '../Services/parseJwt';
 
 function Login({ setToken }) {
     let navigate = useNavigate();
@@ -28,7 +28,7 @@ function Login({ setToken }) {
 
             if (!res.ok) {
                 const errorData = await res.text();
-                throw new Error(errorData || "Unknown error occurred");
+                throw new Error(errorData || 'Unknown error occurred');
             }
 
             // Handle successful response data
@@ -41,25 +41,29 @@ function Login({ setToken }) {
         }
         return await res.json();
     }
-
-    const handleSubmit = async (e) => {
+    
+    const handleSubmit = async e => {
         e.preventDefault();
         const user = await loginUser({
            email,
            password
         });
-        if (!user) return;
+        if(!user) return; 
         setToken(user.token);
         const role = parseJwt(user.token).role;
-        if (role == "Customer") {
+        if(role=="Customer"){
             navigate("/");
-        } else if (role == "Admin") {
-            navigate("/admin/booking");
-        } else if (role == "Host") {
-            navigate("/host/confirm-booking");
-        } else {
         }
-    };
+        else if(role=="Admin"){
+            navigate("/admin/booking");
+        }
+        else if(role=="Host"){
+            navigate("/host/confirm-booking");
+        }
+        else{
+    
+        }
+    }
 
     async function registerUser(credentials) {
         setIsLoading(true);
@@ -69,7 +73,7 @@ function Login({ setToken }) {
 
             if (!res.ok) {
                 const errorData = await res.text();
-                throw new Error(errorData || "Unknown error occurred");
+                throw new Error(errorData || 'Unknown error occurred');
             }
 
             // Handle successful response data
@@ -82,19 +86,19 @@ function Login({ setToken }) {
         }
         return await res.json();
     }
-
-    const handleRegisterSubmit = async (e) => {
+    
+    const handleRegisterSubmit = async e => {
         e.preventDefault();
         const user = await registerUser({
-            name: nameRegister,
-            email: emailRegister,
-            password: passwordRegister,
+          "name": nameRegister,
+          "email": emailRegister,
+          "password": passwordRegister
         });
-        if (!user) return;
+        if(!user) return; 
         setToken(user.token);
         navigate("/");
-    };
-
+    }
+  
     return (
         <Fragment>
             {isLoading && <LoadingSpinner />}
@@ -226,13 +230,35 @@ function Login({ setToken }) {
                         </div>
                     </div>
                 </div>
-            </div>
-        </Fragment>
-    );
+                <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                  
+
+                  <div className="login-form form px-4">
+                    <form onSubmit={handleRegisterSubmit}>
+                    <input type="text" name="" className="form-control" placeholder="Name" onChange={(e) => setNameRegister(e.target.value)}/>
+
+                    <input type="text" name="" className="form-control" placeholder="Email" onChange={(e) => setEmailRegister(e.target.value)}/>
+
+            {/*<input type="text" name="" className="form-control" placeholder="Phone" onChange={(e) => e.setPass}/>*/}
+
+                    <input type="password" name="" className="form-control" placeholder="Password" onChange={(e) => setPasswordRegister(e.target.value)}/>
+
+                    {errorMessageRegister && <div className='text-danger'>{errorMessageRegister}</div>}
+                    <button className="btn login-btn-dark btn-dark btn-block">Signup</button>
+                    </form>
+
+                  </div>
+
+                </div>
+                
+               </div>
+        </Fragment>      
+
+    )
 }
 
 Login.propTypes = {
-    setToken: PropTypes.func.isRequired,
-};
+  setToken: PropTypes.func.isRequired
+}
 
 export default Login;

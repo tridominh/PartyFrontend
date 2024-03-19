@@ -1,10 +1,12 @@
 import getEndpoint from "../getEndpoint";
+import useToken from "../useToken";
 
 export async function GetAllPackages() {
     const res = await fetch(`${getEndpoint()}/api/Package/GetAll`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-            accept: "application/json",
+            "accept": "application/json",
+            //"Authorization": `Bearer ${useToken().token}`,
         },
     });
 

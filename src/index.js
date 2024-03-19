@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -7,7 +7,7 @@ import Layout from "./Pages/Layout";
 import Home from "./Pages/Home";
 import Booking from "./Pages/Booking";
 import NotFound from "./Pages/NotFound";
-import Login from "./Pages/Login";
+import Login from './Pages/Login';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from "./Services/useToken";
 import About from "./Pages/About";
@@ -18,17 +18,13 @@ import VegetarianMenu from "./Pages/VegetarianMenu";
 import PrivateRoute from "./Services/PrivateRoute";
 import parseJwt from "./Services/parseJwt";
 import AdminBooking from "./AdminPages/Booking";
+import AdminPackage from "./AdminPages/Package";
 import ConfirmBooking from "./HostPages/ConfirmBooking";
 import Room from "./Pages/Room";
 import HostPayment from "./HostPages/HostPayment";
 import Payment from "./Pages/Payment";
 import MyBooking from "./Pages/MyBooking";
-import AdminRoom from "./AdminPages/AdminRoom";
-import EditRoom from "./AdminPages/EditRoom";
 import PaymentComplete from "./Pages/PaymentCompleted";
-import CreateRoom from "./AdminPages/CreateRoom";
-import UpdatePackageForm from "./AdminPages/UpdatePackageForm";
-import CreatePackageForm from "./AdminPages/CreatePackageForm";
 
 export default function App() {
     const { token, setToken, removeToken } = useToken();
@@ -59,10 +55,7 @@ export default function App() {
                     <Route path="payment" element={<Payment />}>
                         <Route path=":payType/:id" element={<Payment />} />
                     </Route>
-                    <Route
-                        path="payment-completed"
-                        element={<PaymentComplete />}
-                    />
+                    <Route path="payment-completed" element={<PaymentComplete/>} />
                     {/*Admin pages*/}
                     <Route
                         path="admin/booking"
@@ -76,42 +69,7 @@ export default function App() {
                         path="admin/package"
                         element={
                             <PrivateRoute role="Admin">
-                                <Package />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="admin/create-package"
-                        element={
-                            <PrivateRoute role="Admin">
-                                <CreatePackageForm />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="admin/update-package/:id"
-                        element={
-                            <PrivateRoute role="Admin">
-                                <UpdatePackageForm />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="admin/room"
-                        element={
-                            <PrivateRoute role="Admin">
-                                <AdminRoom />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route path="admin/edit-room" element={<EditRoom />}>
-                        <Route path=":id" element={<EditRoom />} />
-                    </Route>
-                    <Route
-                        path="admin/create-room"
-                        element={
-                            <PrivateRoute role="Admin">
-                                <CreateRoom/>
+                                <AdminPackage />
                             </PrivateRoute>
                         }
                     />
@@ -132,11 +90,10 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
-                    
+                    <Route path="*" element={<NotFound />} />
                     <Route path="kidsMenu" element={<KidsMenu />} />
                     <Route path="normalMenu" element={<NormalMenu />} />
                     <Route path="vegetarianMenu" element={<VegetarianMenu />} />
-                    <Route path="*" element={<NotFound />} />
                 </Route>
                 <Route path="login" element={<Login setToken={setToken} />} />
             </Routes>
@@ -144,7 +101,7 @@ export default function App() {
     );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
