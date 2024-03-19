@@ -1,13 +1,15 @@
 import React, { Fragment, useState, useEffect } from "react";
 
 import PageHeader from "../Components/PageHeader";
-import GetAllPackages, {
+import {
+    GetAllPackages,
     DeletePackage,
 } from "../Services/ApiServices/PackageServices";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import CreateButton from "../Components/LinkButton";
 import { useNavigate } from "react-router-dom";
 import "../AdminPages/Package.css";
+import LinkButton from "../Components/LinkButton";
 
 function Package() {
     const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +83,10 @@ function Package() {
                         <th scope="col">#</th>
                         <th scope="col">Package Name</th>
                         <th scope="col">Package Type</th>
-                        <th scope="col">Action</th> {}
+                        <th colSpan="2" scope="col">
+                            Action
+                        </th>{" "}
+                        {}
                     </tr>
                 </thead>
                 <tbody>
@@ -101,12 +106,18 @@ function Package() {
                                     Delete
                                 </button>
                             </td>
+                            <td>
+                                <LinkButton
+                                    link={`/admin/update-package/${item.packageId}`}
+                                    text="Update"
+                                />
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
             <br></br>
-            <CreateButton link="/admin/create-package" text="Create Package" />
+            <LinkButton link="/admin/create-package" text="Create Package" />
         </Fragment>
     );
 }

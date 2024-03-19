@@ -6,7 +6,7 @@ async function UploadRoomImage(roomId, imageData) {
   const formData = new FormData();
   formData.append("roomId", roomId);
   formData.append("image", imageData);
-  const res = await fetch(`${getEndpoint()}/api/Room/UploadRoomImage`, {
+  const res = await fetch(`${getEndpoint()}/api/Room/CreateRoom`, {
     method: 'POST',
     headers: {
       //"Authorization": `Bearer ${useToken().token}`,
@@ -55,4 +55,21 @@ async function DeleteRoomImage(imageId) {
   console.log('Room image deleted');
 }
 
-export { UploadRoomImage, GetRoomImages, DeleteRoomImage };
+async function UpdateRoomImages(roomId) {
+  const res = await fetch(`${getEndpoint()}/api/Room/GetRoomImages?roomId=${roomId}`, {
+    method: 'GET',
+    headers: {
+      "accept": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Error fetching room images: ${res.statusText}`);
+  }
+
+  const images = await res.json(); 
+  console.log('Room images retrieved:', images);
+  return images;
+}
+
+export { UploadRoomImage, GetRoomImages, DeleteRoomImage, UpdateRoomImages };

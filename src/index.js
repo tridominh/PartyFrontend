@@ -27,7 +27,7 @@ import AdminRoom from "./AdminPages/AdminRoom";
 import EditRoom from "./AdminPages/EditRoom";
 import PaymentComplete from "./Pages/PaymentCompleted";
 import CreateRoom from "./AdminPages/CreateRoom";
-
+import UpdatePackageForm from "./AdminPages/UpdatePackageForm";
 import CreatePackageForm from "./AdminPages/CreatePackageForm";
 
 export default function App() {
@@ -89,6 +89,14 @@ export default function App() {
                         }
                     />
                     <Route
+                        path="admin/update-package/:id"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <UpdatePackageForm />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
                         path="admin/room"
                         element={
                             <PrivateRoute role="Admin">
@@ -99,6 +107,14 @@ export default function App() {
                     <Route path="admin/edit-room" element={<EditRoom />}>
                         <Route path=":id" element={<EditRoom />} />
                     </Route>
+                    <Route
+                        path="admin/create-room"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <CreateRoom/>
+                            </PrivateRoute>
+                        }
+                    />
                     {/*Host pages*/}
                     <Route
                         path="host/confirm-booking"
@@ -116,6 +132,7 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
+                    
                     <Route path="kidsMenu" element={<KidsMenu />} />
                     <Route path="normalMenu" element={<NormalMenu />} />
                     <Route path="vegetarianMenu" element={<VegetarianMenu />} />
