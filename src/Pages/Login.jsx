@@ -98,7 +98,7 @@ function Login({ setToken }) {
     return (
         <Fragment>
             {isLoading && <LoadingSpinner />}
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flex justify-content-center align-items-center" style={{height: "100vh", background:"url('https://wallpapers.com/images/hd/food-4k-1vrcb0mw76zcg4qf.jpg')"}}>
                 <div className="card login-card">
                     <ul
                         className="nav login-nav-pills nav-pills mb-3"

@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PageHeader from "../Components/PageHeader";
 import { GetRoomById, UpdateRoom } from "../Services/ApiServices/RoomServices";
+import "./CreateRoom.css";
 
 function EditRoom() {
     const navigate = useNavigate();
@@ -13,6 +14,8 @@ function EditRoom() {
     const [capacity, setCapacity] = useState(null);
     const [roomStatus, setRoomStatus] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
+
+    const [errors, setErrors] = useState({});
 
     const fetchRoom = async () => {
         const response = await GetRoomById(id);
@@ -44,6 +47,29 @@ function EditRoom() {
             capacity,
             roomStatus
         };
+
+            const newErrors = {};
+        if (!roomNumber || !price || !capacity || !roomStatus) {
+            newErrors.allFields = "All fields are required";
+        }
+        if (!/^\d+$/.test(roomNumber)) {
+            newErrors.roomNumber = "Room Number must contain only digits.";
+        }
+        if (!/^\d+(\.\d+)?$/.test(price) || parseFloat(price) > 500) {
+            newErrors.price = "Price must be a number and less than or equal to 500.";
+        }
+        if (!/^\d+$/.test(capacity) || parseInt(capacity) > 200) {
+            newErrors.capacity = "Capacity must be a number and less than or equal to 200.";
+        }
+        if (roomStatus.length > 50) {
+            newErrors.roomStatus = "Room Status must not exceed 50 characters.";
+        }
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) {
+            setIsUpdating(false);
+            return;
+        }
 
         try {
           let formData = new FormData();
@@ -98,6 +124,8 @@ function EditRoom() {
                             onChange={(e) => setRoomNumber(e.target.value)}
                             required
                         />
+                        {errors.roomNumber && <span className="error-message">{errors.roomNumber}</span>}
+
                         <br />
                         <label htmlFor="capacity">Capacity:</label>
                         <input
@@ -108,6 +136,8 @@ function EditRoom() {
                             defaultValue={room.capacity}
                             required
                         />
+                        {errors.capacity && <span className="error-message">{errors.capacity}</span>}
+
                         <br />
                         <label htmlFor="roomStatus">Room Status:</label>
                         <input
@@ -118,6 +148,8 @@ function EditRoom() {
                             defaultValue={room.roomStatus}
                             required
                         />
+                        {errors.roomStatus && <span className="error-message">{errors.roomStatus}</span>}
+
                         <br />
                         <label htmlFor="price">Price:</label>
                         <input
@@ -128,13 +160,15 @@ function EditRoom() {
                             defaultValue={room.price}
                             required
                         />
+                        {errors.price && <span className="error-message">{errors.price}</span>}
+
                         <br />
-                        <label htmlFor="roomImage">Room Image (Optional):</label>
+                        <label htmlFor="roomImage">Room Image:</label>
                         <input type="file" id="roomImage" onChange={handleImageChange} />
                         <br />
                         {selectedImage && (
                             <div className="image-preview-container">
-                                <img src={URL.createObjectURL(selectedImage)} alt="Selected room image" />
+                                <p>{selectedImage.name}</p>
                             </div>
                         )}
                         <div className="button-container">
