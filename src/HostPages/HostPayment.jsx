@@ -1,11 +1,13 @@
-import React, { Fragment } from "react";
+import { Fragment, useState } from "react";
 import PageHeader from "../Components/PageHeader";
 
 export default function HostPayment() {
-  return (
-    <Fragment>
-        <PageHeader title1="Admin" title={"Package"}/>
-        <h2>Admin Package</h2>
-    </Fragment>
-  );
+    const [bookings, setBookings] = useState(null);
+    return (
+        <Fragment>
+            <PageHeader title1="Host" title={"Payment"}/>
+            <div>Payment</div>
+        </Fragment>
+    );
 }
+ 

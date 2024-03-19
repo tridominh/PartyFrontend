@@ -4,8 +4,8 @@ import PageHeader from "../Components/PageHeader";
 export default function AdminBooking() {
   return (
     <Fragment>
-        <PageHeader title1="Admin" title={"Package"}/>
-        <h2>Admin Package</h2>
+        <PageHeader title1="Admin" title={"Booking"}/>
+        <h2>Admin Booking</h2>
     </Fragment>
   );
 }

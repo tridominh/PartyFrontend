@@ -83,7 +83,6 @@ function Booking(){
         e.preventDefault();
         const roomId = parseInt(document.getElementById("roomId").innerText);
         const partyDateTime = document.getElementById("partyDate").value;
-        const partyEndTime = document.getElementById("partyEndDate").value;
         const services = document.getElementsByClassName("service-select");
         let serviceIds = [];
         for(let service of services){
@@ -95,7 +94,6 @@ function Booking(){
             roomId: roomId,
             bookingDate: new Date().toISOString(),
             partyDateTime: partyDateTime,
-            partyEndTime: partyEndTime,
             bookingStatus: "Pending",
             feedback: "",
             serviceIds: serviceIds
@@ -156,18 +154,9 @@ function Booking(){
                                 </div>
                             </div>
                             <div className="control-group row">
-                                <label className='col-3 booking-label'>Party Time</label>
+                                <label className='col-3 booking-label'>Booking Date</label>
                                 <div className="col-9 input-group date" id="date" data-target-input="nearest">
                                     <input id='partyDate' type="datetime-local" className="form-control" placeholder="Date"/>
-        {/*<div className="input-group-append">
-                                        <div className="input-group-text"><i className="far fa-calendar-alt"></i></div>
-                                    </div>*/}
-                                </div>
-                            </div>
-                            <div className="control-group row">
-                                <label className='col-3 booking-label'>Party End Time</label>
-                                <div className="col-9 input-group date" id="date" data-target-input="nearest">
-                                    <input id='partyEndDate' type="datetime-local" className="form-control" placeholder="Date"/>
         {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-calendar-alt"></i></div>
                                     </div>*/}
