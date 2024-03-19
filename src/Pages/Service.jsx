@@ -1,26 +1,70 @@
 import React, { Fragment, useState, useEffect } from "react";
 import PageHeader from "../Components/PageHeader";
-import GetAllServices from "../Services/ApiServices/ServiceServices";
+import {
+    GetAllServices,
+    DeleteService,
+} from "../Services/ApiServices/ServiceServices";
+import { useNavigate } from "react-router-dom";
+import "../AdminPages/Service.css";
+import LinkButton from "../Components/LinkButton";
 
-export default function Serivce() {
-    const [allServices, setAllServices] = useState([]);
-
+function Service() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [Service, setService] = useState([]);
+    const [serviceToDelete, setServiceToDelete] = useState(null);
+    const [confirmDelete, setConfirmDelete] = useState(false);
+    
+    const navigate = useNavigate();
+    
     useEffect(() => {
         const fetchAllServices = async () => {
-            const response = await GetAllServices();
-            const allServices = await response.json();
-            setAllServices(allServices);
+            try {
+                setIsLoading(true);
+                const response = await GetAllServices();
+                setService(response);
+            } catch (error) {
+                console.error("Error fetching services:", error);
+            } finally {
+                setIsLoading(false);
+            }
         };
 
         fetchAllServices();
     }, []);
 
-    if (allServices.length == 0) {
+    const handleDeleteService = async (item) => {
+        if (serviceToDelete) {
+            try {
+                console.log(`Deleting service ${serviceToDelete.serviceId}`);
+
+                const response = await DeleteService(item.serviceId);
+
+                const services = await GetAllServices();
+                setService(services);
+            } catch (error) {
+                console.error("Error deleting service:", error);
+            } finally {
+                setServiceToDelete(null);
+                setConfirmDelete(false);
+            }
+        }
+    };
+
+    const confirmDeleteDialog = (
+        <div className="confirm-delete-dialog">
+            <p>Are you sure you want to delete this service?</p>
+            <button onClick={() => handleDeleteService(serviceToDelete)}>
+                Yes
+            </button>
+            <button onClick={() => setConfirmDelete(false)}>No</button>
+        </div>
+    );
+
+    if (Service.length === 0) {
         return (
             <Fragment>
                 <PageHeader title1="Page" title={"Service List"} />
-                <h2>Service List</h2>
-
+                <h2>No services found</h2>
                 <table></table>
             </Fragment>
         );
@@ -28,30 +72,50 @@ export default function Serivce() {
 
     return (
         <Fragment>
-            <PageHeader title1="Page" title={"Service List"} />
-            <h2>Service List</h2>
-
-            <table className="table">
+            <PageHeader title={"Service"} />
+            {confirmDelete && confirmDeleteDialog}
+            <table className="service-table">
                 <thead>
-                    <tr className="table-primary">
-                        <th>Service Name</th>
-                        <th>Service Price</th>
-                        <th>Description</th> 
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Service Name</th>
+                        <th scope="col">Service Price</th>
+                        <th scope="col">Service Description</th>
+                        <th colSpan="2" scope="col">Action</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    {allServices.map((ser) => {
-                        return (
-                            <tr className="table-warning" key={ser.serviceId}>
-                                <td>{ser.serviceName}</td>
-                                <td>{ser.servicePrice}</td>
-                                <td>{ser.description}</td>
-                            </tr>
-                        );
-                    })}
+                    {Service.map((item) => (
+                        <tr key={item.serviceId}>
+                            <td>{item.serviceId}</td>
+                            <td>{item.serviceName}</td>
+                            <td>{item.servicePrice}</td>
+                            <td>{item.description}</td>
+                            <td>
+                                <button
+                                    className="delete-btn"
+                                    onClick={() => {
+                                        setServiceToDelete(item);
+                                        setConfirmDelete(true);
+                                    }}
+                                >
+                                    Delete
+                                </button>
+                            </td>
+                            <td>
+                                <LinkButton
+                                    link={`/admin/update-service/${item.serviceId}`}
+                                    text="Update"
+                                />
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
+            <br />
+            <LinkButton link="/admin/create-service" text="Create Service" />
         </Fragment>
     );
 }
+
+export default Service;

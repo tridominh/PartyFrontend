@@ -12,6 +12,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from "./Services/useToken";
 import About from "./Pages/About";
 import Package from "./Pages/Package";
+import Service from "./Pages/Service";
 import KidsMenu from "./Pages/KidsMenu";
 import NormalMenu from "./Pages/NormalMenu";
 import VegetarianMenu from "./Pages/VegetarianMenu";
@@ -29,6 +30,8 @@ import PaymentComplete from "./Pages/PaymentCompleted";
 import CreateRoom from "./AdminPages/CreateRoom";
 import UpdatePackageForm from "./AdminPages/UpdatePackageForm";
 import CreatePackageForm from "./AdminPages/CreatePackageForm";
+import UpdateServiceForm from "./AdminPages/UpdateServiceForm";
+import CreateServiceForm from "./AdminPages/CreateServiceForm";
 
 export default function App() {
     const { token, setToken, removeToken } = useToken();
@@ -115,6 +118,32 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
+                    <Route
+                        path="admin/service"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <Service/>
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="admin/create-service"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <CreateServiceForm/>
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="admin/update-service/:id"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <UpdateServiceForm/>
+                            </PrivateRoute>
+                        }
+                    />
                     {/*Host pages*/}
                     <Route
                         path="host/confirm-booking"
@@ -132,6 +161,8 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
+
+
                     
                     <Route path="kidsMenu" element={<KidsMenu />} />
                     <Route path="normalMenu" element={<NormalMenu />} />
