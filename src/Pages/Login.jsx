@@ -1,11 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { Fragment, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import "./login.css";
-import LoadingSpinner from "../Components/LoadingSpinner";
-import LoginService from "../Services/ApiServices/LoginServices";
-import RegisterService from "../Services/ApiServices/RegisterServices";
-import parseJwt from "../Services/parseJwt";
+import LoadingSpinner from '../Components/LoadingSpinner';
+import LoginService from '../Services/ApiServices/LoginServices';
+import RegisterService from '../Services/ApiServices/RegisterServices';
+import parseJwt from '../Services/parseJwt';
 
 function Login({ setToken }) {
     let navigate = useNavigate();
@@ -21,7 +21,6 @@ function Login({ setToken }) {
     const [errorMessageRegister, setErrorMessageRegister] = useState("");
 
     async function loginUser(credentials) {
-        //console.log(JSON.stringify(credentials))
         setIsLoading(true);
         let res;
         try {
@@ -29,45 +28,44 @@ function Login({ setToken }) {
 
             if (!res.ok) {
                 const errorData = await res.text();
-                throw new Error(errorData || "Unknown error occurred");
+                throw new Error(errorData || 'Unknown error occurred');
             }
 
             // Handle successful response data
             setErrorMessage("");
             setIsLoading(false);
-            // const data = await res.json();
-            // process the data as needed
         } catch (err) {
             setErrorMessage(err.message);
             setIsLoading(false);
             return;
-            // Handle errors
         }
-        //console.log(await res.json());
         return await res.json();
     }
-
-    const handleSubmit = async (e) => {
+    
+    const handleSubmit = async e => {
         e.preventDefault();
         const user = await loginUser({
-            email,
-            password,
+           email,
+           password
         });
-        if (!user) return;
+        if(!user) return; 
         setToken(user.token);
         const role = parseJwt(user.token).role;
-        if (role == "Customer") {
+        if(role=="Customer"){
             navigate("/");
-        } else if (role == "Admin") {
-            navigate("/admin/booking");
-        } else if (role == "Host") {
-            navigate("/host/confirm-booking");
-        } else {
         }
-    };
+        else if(role=="Admin"){
+            navigate("/admin/booking");
+        }
+        else if(role=="Host"){
+            navigate("/host/confirm-booking");
+        }
+        else{
+    
+        }
+    }
 
     async function registerUser(credentials) {
-        //console.log(JSON.stringify(credentials))
         setIsLoading(true);
         let res;
         try {
@@ -75,40 +73,36 @@ function Login({ setToken }) {
 
             if (!res.ok) {
                 const errorData = await res.text();
-                throw new Error(errorData || "Unknown error occurred");
+                throw new Error(errorData || 'Unknown error occurred');
             }
 
             // Handle successful response data
             setErrorMessageRegister("");
             setIsLoading(false);
-            // const data = await res.json();
-            // process the data as needed
         } catch (err) {
             setErrorMessageRegister(err.message);
             setIsLoading(false);
             return;
-            // Handle errors
         }
-        //console.log(await res.json());
         return await res.json();
     }
-
-    const handleRegisterSubmit = async (e) => {
+    
+    const handleRegisterSubmit = async e => {
         e.preventDefault();
         const user = await registerUser({
-            name: nameRegister,
-            email: emailRegister,
-            password: passwordRegister,
+          "name": nameRegister,
+          "email": emailRegister,
+          "password": passwordRegister
         });
-        if (!user) return;
+        if(!user) return; 
         setToken(user.token);
         navigate("/");
-    };
-
+    }
+  
     return (
         <Fragment>
             {isLoading && <LoadingSpinner />}
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flex justify-content-center align-items-center" style={{height: "100vh", background:"url('https://wallpapers.com/images/hd/food-4k-1vrcb0mw76zcg4qf.jpg')"}}>
                 <div className="card login-card">
                     <ul
                         className="nav login-nav-pills nav-pills mb-3"
@@ -202,7 +196,6 @@ function Login({ setToken }) {
                                             setNameRegister(e.target.value)
                                         }
                                     />
-
                                     <input
                                         type="text"
                                         name=""
@@ -212,9 +205,6 @@ function Login({ setToken }) {
                                             setEmailRegister(e.target.value)
                                         }
                                     />
-
-                                    {/*<input type="text" name="" className="form-control" placeholder="Phone" onChange={(e) => e.setPass}/>*/}
-
                                     <input
                                         type="password"
                                         name=""
@@ -224,13 +214,15 @@ function Login({ setToken }) {
                                             setPasswordRegister(e.target.value)
                                         }
                                     />
-
                                     {errorMessageRegister && (
                                         <div className="text-danger">
                                             {errorMessageRegister}
                                         </div>
                                     )}
-                                    <button className="btn login-btn-dark btn-dark btn-block">
+                                    <button
+                                        className="btn login-btn-dark btn-dark btn-block"
+                                        type="submit"
+                                    >
                                         Signup
                                     </button>
                                 </form>
@@ -238,13 +230,35 @@ function Login({ setToken }) {
                         </div>
                     </div>
                 </div>
-            </div>
-        </Fragment>
-    );
+                <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                  
+
+                  <div className="login-form form px-4">
+                    <form onSubmit={handleRegisterSubmit}>
+                    <input type="text" name="" className="form-control" placeholder="Name" onChange={(e) => setNameRegister(e.target.value)}/>
+
+                    <input type="text" name="" className="form-control" placeholder="Email" onChange={(e) => setEmailRegister(e.target.value)}/>
+
+            {/*<input type="text" name="" className="form-control" placeholder="Phone" onChange={(e) => e.setPass}/>*/}
+
+                    <input type="password" name="" className="form-control" placeholder="Password" onChange={(e) => setPasswordRegister(e.target.value)}/>
+
+                    {errorMessageRegister && <div className='text-danger'>{errorMessageRegister}</div>}
+                    <button className="btn login-btn-dark btn-dark btn-block">Signup</button>
+                    </form>
+
+                  </div>
+
+                </div>
+                
+               </div>
+        </Fragment>      
+
+    )
 }
 
 Login.propTypes = {
-    setToken: PropTypes.func.isRequired,
-};
+  setToken: PropTypes.func.isRequired
+}
 
 export default Login;
