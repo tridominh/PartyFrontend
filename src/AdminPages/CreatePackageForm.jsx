@@ -2,10 +2,13 @@ import React, { Fragment, useState } from "react";
 import CreateButton from "../Components/LinkButton";
 import PageHeader from "../Components/PageHeader";
 import { CreatePackage } from "../Services/ApiServices/PackageServices";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePackageForm() {
     const [packageName, setPackageName] = useState("");
     const [packageType, setPackageType] = useState("");
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,9 +18,9 @@ export default function CreatePackageForm() {
             packageType: packageType,
         };
 
-        console.log(createDto);
-
         const response = await CreatePackage(createDto);
+
+        navigate("/admin/package");
     };
 
     return (
