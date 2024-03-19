@@ -8,7 +8,7 @@ export default async function GetAllPackages() {
         },
     });
 
-    return res;
+    return res.json();
 }
 
 export async function CreatePackage(createDto) {
