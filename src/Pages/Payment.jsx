@@ -79,9 +79,8 @@ function Payment() {
 
     useEffect(() => { fetchMomoUrl(); }, [booking]);
     
-    const [payUrl, setPayUrl] = useState(null);
-
-    
+    if(!payType || !id)
+        return <NotFound/>
 
     if(!booking || !booking.user || !booking.room || booking.bookingServices.length == 0)
         return <NotFound/>
@@ -151,7 +150,7 @@ function Payment() {
                         <i className="fa fa-dollar"></i>
                         Pay with cash
                     </button>
-                    <button className="btn btn-primary">
+                    <button onClick={() => payWithMomo()} className="btn btn-primary">
                         <img src="https://developers.momo.vn/v3/img/logo.svg"/>
                         Pay with Momo
                     </button>
@@ -161,4 +160,4 @@ function Payment() {
     );
 }
 
-export default Payment;
+export default Payment; 
