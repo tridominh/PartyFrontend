@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import PageHeader from '../Components/PageHeader';
 import useToken from '../Services/useToken';
 import "../assets/css/customer-booking.css"
-import GetAllPackages from '../Services/ApiServices/PackageServices';
+import {GetAllPackages} from '../Services/ApiServices/PackageServices';
 import {GetAllRooms} from '../Services/ApiServices/RoomServices';
 import { CreateBooking } from '../Services/ApiServices/BookingServices';
 import NotFound from './NotFound';
@@ -35,9 +35,9 @@ function Booking(){
 
     const fetchPackages = useCallback(async () => {
         const data = await GetAllPackages();
-        const json = await data.json();
+        //const json = await data.json();
         //console.log(json);
-        setPackages(json);
+        setPackages(data);
     }, [])
 
     const fetchRooms = useCallback(async () => {
@@ -85,25 +85,32 @@ function Booking(){
         const partyDateTime = document.getElementById("partyDate").value;
         const partyEndTime = document.getElementById("partyEndDate").value;
         const services = document.getElementsByClassName("service-select");
+        const amounts = document.getElementsByClassName("service-amount");
         let serviceIds = [];
-        for(let service of services){
-            if(service.value == "") continue;
-            serviceIds.push(parseInt(service.value));
+        for(let i=0; i<services.length; i++) {
+            if(services[i].value == "") continue;
+            console.log(amounts[i])
+            let serviceId = {
+                serviceId: parseInt(services[i].value),
+                amount: parseInt(amounts[i].value)
+            }
+            serviceIds.push(serviceId);
         }
         const booking = {
             userId: userId,
             roomId: roomId,
-            bookingDate: new Date().toISOString(),
             partyDateTime: partyDateTime,
             partyEndTime: partyEndTime,
             bookingStatus: "Pending",
             feedback: "",
             serviceIds: serviceIds
         };
+
+        console.log(booking);
         const book = await createBook(booking);
-        if(book){
+        if(book && !errorMsg){
             createHeaderNotification("success", "Create booking successfully", "Success");
-            navigate("/payment");
+            //navigate("/payment");
         }
         else{
             createHeaderNotification("error", errorMsg ,"Error");
@@ -186,7 +193,7 @@ function Booking(){
                                         </select>
                                     </div>
                                     <label className='col-1 booking-label'> x </label>
-                                    <input type="number" className="col-2 form-control"/>
+                                    <input type="number" className="service-amount col-2 form-control"/>
                                 </div>)
                             })}
                             <div>
@@ -201,9 +208,7 @@ function Booking(){
     </div>
     <NotificationContainer/>
     </Fragment>
-    );{/*  Booking End */}
+    );
 }
-
-
 
 export default Booking;
