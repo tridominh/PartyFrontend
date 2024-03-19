@@ -1,7 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
 
 import PageHeader from "../Components/PageHeader";
-import {GetAllPackages, DeletePackage} from "../Services/ApiServices/PackageServices";
+import {
+    GetAllPackages,
+    DeletePackage,
+} from "../Services/ApiServices/PackageServices";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import CreateButton from "../Components/LinkButton";
 import { useNavigate } from "react-router-dom";
@@ -104,15 +107,10 @@ function Package() {
                                 </button>
                             </td>
                             <td>
-                                <button
-                                    className="btn btn-info"
-                                    onClick={() => {
-                                        setPackageToDelete(item);
-                                        setConfirmDelete(true);
-                                    }}
-                                >
-                                    Update
-                                </button>
+                                <LinkButton
+                                    link={`/admin/update-package/${item.packageId}`}
+                                    text="Update"
+                                />
                             </td>
                         </tr>
                     ))}

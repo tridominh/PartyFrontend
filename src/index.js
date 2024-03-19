@@ -27,7 +27,7 @@ import AdminRoom from "./AdminPages/AdminRoom";
 import EditRoom from "./AdminPages/EditRoom";
 import PaymentComplete from "./Pages/PaymentCompleted";
 import CreateRoom from "./AdminPages/CreateRoom";
-
+import UpdatePackageForm from "./AdminPages/UpdatePackageForm";
 import CreatePackageForm from "./AdminPages/CreatePackageForm";
 
 export default function App() {
@@ -85,6 +85,14 @@ export default function App() {
                         element={
                             <PrivateRoute role="Admin">
                                 <CreatePackageForm />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="admin/update-package/:id"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <UpdatePackageForm />
                             </PrivateRoute>
                         }
                     />
