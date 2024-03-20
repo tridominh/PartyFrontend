@@ -30,8 +30,8 @@ function CreateRoomPage() {
   if (!/^\d+$/.test(roomNumber)) {
     newErrors.roomNumber = "Room Number must contain only digits.";
   }
-  if (!/^\d+(\.\d+)?$/.test(price) || parseFloat(price) > 500) {
-    newErrors.price = "Price must be a number and less than or equal to 500.";
+  if (!/^\d+(\.\d+)?$/.test(price) || parseFloat(price) > 2000000) {
+    newErrors.price = "Price must be a number and less than or equal to 2.000.000VNĐ.";
   }
   if (!/^\d+$/.test(capacity) || parseInt(capacity) > 200) {
     newErrors.capacity = "Capacity must be a number and less than or equal to 200.";
@@ -120,7 +120,7 @@ function CreateRoomPage() {
     <Fragment>
       <PageHeader title1="Admin" title="Create Room" />
       <div className="create-room-container container">
-        <h2 className="text-center">Create New Room</h2>
+        <br></br>
         <form onSubmit={handleCreateRoom}>
           <div className="form-group row">
             <label htmlFor="roomNumber" className="col-2">Room Number:</label>
@@ -136,7 +136,7 @@ function CreateRoomPage() {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="price" className="col-2">Price:</label>
+            <label htmlFor="price" className="col-2">Price (VND):</label>
             <input
               type="number"
               id="price"
@@ -160,9 +160,9 @@ function CreateRoomPage() {
             />
             {errors.capacity && <span className="error-message">{errors.capacity}</span>}
           </div>
-          <div className="form-group row">
 
-            <label htmlFor="roomStatus" className="col-3">Room Status:</label>
+          <div className="form-group row">
+            <label htmlFor="roomStatus" className="col-2">Room Status:</label>
             <select
               id="roomStatus"
               value={roomStatus}
@@ -178,7 +178,7 @@ function CreateRoomPage() {
           </div>
           <div className="form-group row">
 
-            <label htmlFor="roomImage" className="col-3">Room Image:</label>
+            <label htmlFor="roomImage" className="col-2">Room Image:</label>
             <input type="file" id="roomImage" className="form-control col-7" onChange={handleImageChange} />
             {selectedImage && (
               <div className="image-preview-container">
@@ -197,6 +197,47 @@ function CreateRoomPage() {
           </div>
         </form>
       </div>
+      {/* Footer Start */}
+      <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="footer-contact">
+                                    <h2>Our Address</h2>
+                                    <p><i class="fa fa-map-marker-alt"></i>FPT University HCMC</p>
+                                    <p><i class="fa fa-phone-alt"></i>+098 765 4321</p>
+                                    <p><i class="fa fa-envelope"></i>birthdayparty@gmail.com</p>
+                                    <div class="footer-social">
+                                        <a href=""><i class="fab fa-twitter"></i></a>
+                                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a href=""><i class="fab fa-youtube"></i></a>
+                                        <a href=""><i class="fab fa-instagram"></i></a>
+                                        <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="footer-link">
+                                    <h2>Quick Links</h2>
+                                    <a href="">Terms of use</a>
+                                    <a href="">Privacy policy</a>
+                                    <a href="">Help</a>
+                                    <a href="">FQAs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <p>Copyright &copy; <a href="/">Birthday Party For Kids</a>, All Right Reserved.</p>
+                </div>
+            </div>
+        </div>
+        {/* Footer End */}
     </Fragment>
   );
 }

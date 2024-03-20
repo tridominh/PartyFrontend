@@ -18,7 +18,21 @@ function Room(){
     };
 
     const [rooms, setRooms] = useState(null);
+    const [filterPrice, setFilterPrice] = useState(null);
 
+
+    const handleFilterPrice = (event) => {
+        const value = event.target.value;
+        setFilterPrice(value);
+    };
+
+    const filterRoomsByPrice = (rooms, filterPrice) => {
+        if (!filterPrice) {
+            return rooms;
+        }
+    
+        return rooms.filter(room => room.price <= filterPrice);
+    };
 
     const fetchData = useCallback(async () => {
         const data = await GetAllRooms();
@@ -43,6 +57,17 @@ function Room(){
         <Fragment>
             <PageHeader title={"Room"}/>
             {/*<div>{JSON.stringify(rooms)}</div>*/}
+            <div className="filter-container">
+                <br></br>
+            <label htmlFor="priceFilter">Filter by Price:</label>
+            <select id="priceFilter" onChange={handleFilterPrice}>
+                <option value="">All</option>
+                <option value="300000">Less than 300.000 VND</option>
+                    <option value="500000">Less than 500.000 VND</option>
+                    <option value="1000000">Less than 1.000.000 VND</option>
+                    <option value="2000000">Less than 2.000.000 VND</option>
+            </select>
+        </div>
             <div className="food row align-items-center">
                 {rooms.map(room => {
                     return (
@@ -54,8 +79,6 @@ function Room(){
                                 <h2>{room.roomNumber}</h2>
                                 <strong className='room-price-text'>{`Price: ${room.price} VND`}</strong>
                                 <div className='room-price-text'>{`Status: ${room.roomStatus}`}</div>
-                                <p>
-                                The menu will include mainly vegetables, mushrooms, kimchi, tofu and beans.                            </p>
                                 <Link className='room-book-btn' to={`/Booking/${room.roomId}`}>Book Now!!!</Link>
                             </div>
                         </div>
@@ -63,6 +86,47 @@ function Room(){
                 })}
                 
             </div>
+            {/* Footer Start */}
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="footer-contact">
+                                    <h2>Our Address</h2>
+                                    <p><i class="fa fa-map-marker-alt"></i>FPT University HCMC</p>
+                                    <p><i class="fa fa-phone-alt"></i>+098 765 4321</p>
+                                    <p><i class="fa fa-envelope"></i>birthdayparty@gmail.com</p>
+                                    <div class="footer-social">
+                                        <a href=""><i class="fab fa-twitter"></i></a>
+                                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a href=""><i class="fab fa-youtube"></i></a>
+                                        <a href=""><i class="fab fa-instagram"></i></a>
+                                        <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="footer-link">
+                                    <h2>Quick Links</h2>
+                                    <a href="">Terms of use</a>
+                                    <a href="">Privacy policy</a>
+                                    <a href="">Help</a>
+                                    <a href="">FQAs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <p>Copyright &copy; <a href="/">Birthday Party For Kids</a>, All Right Reserved.</p>
+                </div>
+            </div>
+        </div>
+        {/* Footer End */}
         </Fragment>
     );
 }

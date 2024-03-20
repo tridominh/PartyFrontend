@@ -40,8 +40,8 @@ function Carousell(){
                         Choosing us to give your child the best party
                     </p>
                     <div className="carousel-btn">
-                        <Link className="btn custom-btn" to="/Menu">View Menu</Link>
-                        <Link className="btn custom-btn" to="/Booking">Book Table</Link>
+                        <Link className="btn custom-btn" to="/Package">View Menu</Link>
+                        <Link className="btn custom-btn" to="/Room">Book Table</Link>
                     </div>
                 </div>
             </div>
@@ -55,8 +55,8 @@ function Carousell(){
                     Choosing us to give your child the best party
                     </p>
                     <div className="carousel-btn">
-                        <Link className="btn custom-btn" to="/Menu">View Menu</Link>
-                        <Link className="btn custom-btn" to="/Booking">Book Table</Link>
+                        <Link className="btn custom-btn" to="/Package">View Menu</Link>
+                        <Link className="btn custom-btn" to="/Room">Book Table</Link>
                     </div>
                 </div>
             </div>
@@ -70,8 +70,8 @@ function Carousell(){
                     Choosing us to give your child the best party
                     </p>
                     <div className="carousel-btn">
-                        <Link className="btn custom-btn" to="/Menu">View Menu</Link>
-                        <Link className="btn custom-btn" to="/Booking">Book Table</Link>
+                        <Link className="btn custom-btn" to="/Package">View Menu</Link>
+                        <Link className="btn custom-btn" to="/Room">Book Table</Link>
                     </div>
                 </div>
             </div>
