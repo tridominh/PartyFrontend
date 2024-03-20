@@ -195,7 +195,9 @@ function Booking(){
             </div>
         </div>
     </div>
+    
     <NotificationContainer/>
+    
     </Fragment>
     );
 }

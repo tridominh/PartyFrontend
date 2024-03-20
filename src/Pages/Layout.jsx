@@ -64,35 +64,7 @@ function Layout({ token, removeToken, role }) {
                                     >
                                         My Booking
                                     </Link>
-                                    <div className="nav-item dropdown">
-                                        <Link
-                                            href="/Menu"
-                                            className="nav-link dropdown-toggle"
-                                            data-toggle="dropdown"
-                                        >
-                                            Menu
-                                        </Link>
-                                        <div className="dropdown-menu">
-                                            <Link
-                                                to="/menu/vegetarian"
-                                                className="dropdown-item"
-                                            >
-                                                Vegetarian Menu
-                                            </Link>
-                                            <Link
-                                                to="/menu/normal"
-                                                className="dropdown-item"
-                                            >
-                                                Normal Menu
-                                            </Link>
-                                            <Link
-                                                to="/menu/kids"
-                                                className="dropdown-item"
-                                            >
-                                                Kids Menu
-                                            </Link>
-                                        </div>
-                                    </div>
+                                    
                                 </Fragment>
                             )}
 
