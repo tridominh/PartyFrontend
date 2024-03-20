@@ -134,6 +134,13 @@ function Layout({ token, removeToken, role }) {
                                     >
                                         Rooms
                                     </Link>
+                                    <Link
+                                        to="/admin/service"
+                                        className="nav-item nav-link"
+                                    >
+                                        Services
+                                    </Link>
+                                    <Link to="/admin/create-service"></Link>
                                 </Fragment>
                             )}
 

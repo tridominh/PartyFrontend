@@ -35,9 +35,9 @@ function Booking(){
 
     const fetchPackages = useCallback(async () => {
         const data = await GetAllPackages();
-        //const json = await data.json();
+        const json = data;
         //console.log(json);
-        setPackages(data);
+        setPackages(json);
     }, [])
 
     const fetchRooms = useCallback(async () => {
@@ -83,6 +83,7 @@ function Booking(){
         e.preventDefault();
         const roomId = parseInt(document.getElementById("roomId").innerText);
         const partyDateTime = document.getElementById("partyDate").value;
+        const partyEndTime = document.getElementById("partyEndDate").value;
         const services = document.getElementsByClassName("service-select");
         const amounts = document.getElementsByClassName("service-amount");
         let serviceIds = [];
@@ -99,22 +100,26 @@ function Booking(){
             userId: userId,
             roomId: roomId,
             partyDateTime: partyDateTime,
+            partyEndTime: partyEndTime,
             bookingStatus: "Pending",
             feedback: "",
             serviceIds: serviceIds
         };
 
-        console.log(booking);
+        //console.log(booking);
         const book = await createBook(booking);
-        if(book && !errorMsg){
+        console.log(book);
+        console.log(errorMsg);
+        if(book != undefined){
             createHeaderNotification("success", "Create booking successfully", "Success");
             //navigate("/payment");
         }
-        else{
-            createHeaderNotification("error", errorMsg ,"Error");
-        }
-        console.log(book);
     };
+
+    useEffect(() => {
+        if(errorMsg != "")
+            createHeaderNotification("error", errorMsg ,"Error");
+    }, [errorMsg])
 
     if(!rooms || !packages) 
         return (<Fragment>
@@ -161,9 +166,18 @@ function Booking(){
                                 </div>
                             </div>
                             <div className="control-group row">
-                                <label className='col-3 booking-label'>Booking Date</label>
+                                <label className='col-3 booking-label'>Party Time</label>
                                 <div className="col-9 input-group date" id="date" data-target-input="nearest">
                                     <input id='partyDate' type="datetime-local" className="form-control" placeholder="Date"/>
+        {/*<div className="input-group-append">
+                                        <div className="input-group-text"><i className="far fa-calendar-alt"></i></div>
+                                    </div>*/}
+                                </div>
+                            </div>
+                            <div className="control-group row">
+                                <label className='col-3 booking-label'>Party End Time</label>
+                                <div className="col-9 input-group date" id="date" data-target-input="nearest">
+                                    <input id='partyEndDate' type="datetime-local" className="form-control" placeholder="Date"/>
         {/*<div className="input-group-append">
                                         <div className="input-group-text"><i className="far fa-calendar-alt"></i></div>
                                     </div>*/}

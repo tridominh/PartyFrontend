@@ -12,6 +12,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from "./Services/useToken";
 import About from "./Pages/About";
 import Package from "./Pages/Package";
+import Service from "./Pages/Service";
 // import KidsMenu from "./Pages/KidsMenu";
 // import NormalMenu from "./Pages/NormalMenu";
 // import VegetarianMenu from "./Pages/VegetarianMenu";
@@ -24,10 +25,14 @@ import Room from "./Pages/Room";
 import HostPayment from "./HostPages/HostPayment";
 import Payment from "./Pages/Payment";
 import MyBooking from "./Pages/MyBooking";
-import PaymentComplete from "./Pages/PaymentCompleted";
 import PackagesPage from "./Pages/Packages";
 import AdminRoom from "./AdminPages/AdminRoom";
 import EditRoom from "./AdminPages/EditRoom";
+import PaymentComplete from "./Pages/PaymentCompleted";
+import UpdatePackageForm from "./AdminPages/UpdatePackageForm";
+import CreatePackageForm from "./AdminPages/CreatePackageForm";
+import UpdateServiceForm from "./AdminPages/UpdateServiceForm";
+import CreateServiceForm from "./AdminPages/CreateServiceForm";
 import { CreateRoom } from "./Services/ApiServices/RoomServices";
 import CreateRoomPage from "./AdminPages/CreateRoom";
 import KidsMenu from "./Pages/NormalMenu";
@@ -77,7 +82,24 @@ export default function App() {
                         path="admin/package"
                         element={
                             <PrivateRoute role="Admin">
-                                <AdminPackage />
+                                <Package/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="admin/create-package"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <CreatePackageForm/>
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="admin/update-package/:id"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <UpdatePackageForm/>
                             </PrivateRoute>
                         }
                     />
@@ -97,6 +119,32 @@ export default function App() {
                         element={
                             <PrivateRoute role="Admin">
                                 <CreateRoomPage/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="admin/service"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <Service/>
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="admin/create-service"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <CreateServiceForm/>
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="admin/update-service/:id"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <UpdateServiceForm/>
                             </PrivateRoute>
                         }
                     />

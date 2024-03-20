@@ -30,7 +30,7 @@ export default function CreatePackageForm() {
 
             <form onSubmit={handleSubmit}>
                 <div className="col-12 mb-3">
-                    <label for="packageName">Package Name:</label>
+                    <label for="packageName">Package Name</label>
                     <input
                         className="form-control"
                         type="text"
