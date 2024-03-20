@@ -18,7 +18,7 @@ export default function CreateServiceForm() {
             packageId: packageId,
             serviceName: serviceName,
             servicePrice: servicePrice,
-            desciption: desciption,
+            serviceDescription: desciption,
         };
 
         const response = await CreateService(createDto);

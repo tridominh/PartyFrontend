@@ -36,7 +36,7 @@ export async function UpdateService(updateDto) {
 }
 
 export async function DeleteService(id) {
-    const res = await fetch(`${getEndpoint()}/api/Service/DeleteService/${id}`, {
+    const res = await fetch(`${getEndpoint()}/api/Service/DeleteService?id=${id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",

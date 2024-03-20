@@ -7,7 +7,7 @@ export default function UpdateServiceForm() {
     const [packageId, setPackageId] = useState("");
     const [serviceName, setServiceName] = useState("");
     const [servicePrice, setServicePrice] = useState("");
-    const [desciption, setServiceDesciption] = useState("");
+    const [description, setServiceDescription] = useState("");
 
     const { id } = useParams();
     console.log(id);
@@ -22,7 +22,7 @@ export default function UpdateServiceForm() {
             packageId: packageId,
             serviceName: serviceName,
             servicePrice: servicePrice,
-            desciption: desciption,
+            serviceDescription: description,
         };
 
         const response = await UpdateService(updateDto);
@@ -74,14 +74,14 @@ export default function UpdateServiceForm() {
                 </div>
                 
                 <div className="col-12 mb-3">
-                    <label for="desciption">Service Description</label>
+                    <label for="description">Service Description</label>
                     <input
                         className="form-control"
                         type="text"
-                        id="desciption"
-                        name="desciption"
-                        value={desciption}
-                        onChange={(e) => setServiceDesciption(e.target.value)}
+                        id="description"
+                        name="description"
+                        value={description}
+                        onChange={(e) => setServiceDescription(e.target.value)}
                         required
                     />
                 </div>

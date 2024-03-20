@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 import PageHeader from "../Components/PageHeader";
 import {
     GetAllServices,
     DeleteService,
 } from "../Services/ApiServices/ServiceServices";
-import { useNavigate } from "react-router-dom";
+import { Await, useNavigate } from "react-router-dom";
 import "../AdminPages/Service.css";
 import LinkButton from "../Components/LinkButton";
 
@@ -15,20 +15,21 @@ function Service() {
     const [confirmDelete, setConfirmDelete] = useState(false);
     
     const navigate = useNavigate();
+    const fetchAllServices = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            const response = await GetAllServices();
+            setService(response);
+            return await response.json();
+
+        } catch (error) {
+            console.error("Error fetching services:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
     
     useEffect(() => {
-        const fetchAllServices = async () => {
-            try {
-                setIsLoading(true);
-                const response = await GetAllServices();
-                setService(response);
-            } catch (error) {
-                console.error("Error fetching services:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
         fetchAllServices();
     }, []);
 
@@ -53,7 +54,7 @@ function Service() {
     const confirmDeleteDialog = (
         <div className="confirm-delete-dialog">
             <p>Are you sure you want to delete this service?</p>
-            <button onClick={() => handleDeleteService(serviceToDelete)}>
+            <button onClick={async () =>{ await handleDeleteService(serviceToDelete); await fetchAllServices()}}>
                 Yes
             </button>
             <button onClick={() => setConfirmDelete(false)}>No</button>
