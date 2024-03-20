@@ -30,8 +30,8 @@ function CreateRoomPage() {
   if (!/^\d+$/.test(roomNumber)) {
     newErrors.roomNumber = "Room Number must contain only digits.";
   }
-  if (!/^\d+(\.\d+)?$/.test(price) || parseFloat(price) > 500) {
-    newErrors.price = "Price must be a number and less than or equal to 500.";
+  if (!/^\d+(\.\d+)?$/.test(price) || parseFloat(price) > 2000000) {
+    newErrors.price = "Price must be a number and less than or equal to 2.000.000VNĐ.";
   }
   if (!/^\d+$/.test(capacity) || parseInt(capacity) > 200) {
     newErrors.capacity = "Capacity must be a number and less than or equal to 200.";
@@ -120,7 +120,7 @@ function CreateRoomPage() {
     <Fragment>
       <PageHeader title1="Admin" title="Create Room" />
       <div className="create-room-container container">
-        <h2 className="text-center">Create New Room</h2>
+        <br></br>
         <form onSubmit={handleCreateRoom}>
           <div className="form-group row">
             <label htmlFor="roomNumber" className="col-2">Room Number:</label>
@@ -136,7 +136,7 @@ function CreateRoomPage() {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="price" className="col-2">Price:</label>
+            <label htmlFor="price" className="col-2">Price (VND):</label>
             <input
               type="number"
               id="price"
@@ -160,9 +160,9 @@ function CreateRoomPage() {
             />
             {errors.capacity && <span className="error-message">{errors.capacity}</span>}
           </div>
-          <div className="form-group row">
 
-            <label htmlFor="roomStatus" className="col-3">Room Status:</label>
+          <div className="form-group row">
+            <label htmlFor="roomStatus" className="col-2">Room Status:</label>
             <select
               id="roomStatus"
               value={roomStatus}
@@ -178,7 +178,7 @@ function CreateRoomPage() {
           </div>
           <div className="form-group row">
 
-            <label htmlFor="roomImage" className="col-3">Room Image:</label>
+            <label htmlFor="roomImage" className="col-2">Room Image:</label>
             <input type="file" id="roomImage" className="form-control col-7" onChange={handleImageChange} />
             {selectedImage && (
               <div className="image-preview-container">

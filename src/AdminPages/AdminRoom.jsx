@@ -92,10 +92,10 @@ function AdminRoom(){
                 <label htmlFor="priceFilter">Filter by Price:</label>
                 <select id="priceFilter" onChange={handleFilterPrice}>
                     <option value="">All</option>
-                    <option value="100">Less than 100 VND</option>
-                    <option value="200">Less than 200 VND</option>
-                    <option value="300">Less than 300 VND</option>
-                    <option value="500">Less than 500 VND</option>
+                    <option value="300000">Less than 300.000 VND</option>
+                    <option value="500000">Less than 500.000 VND</option>
+                    <option value="1000000">Less than 1.000.000 VND</option>
+                    <option value="2000000">Less than 2.000.000 VND</option>
                 </select>
             </div>
             <div className="food">
