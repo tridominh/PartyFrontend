@@ -30,6 +30,8 @@ import AdminRoom from "./AdminPages/AdminRoom";
 import EditRoom from "./AdminPages/EditRoom";
 import { CreateRoom } from "./Services/ApiServices/RoomServices";
 import CreateRoomPage from "./AdminPages/CreateRoom";
+import KidsMenu from "./Pages/NormalMenu";
+import Menu from "./Pages/KidsMenu";
 
 export default function App() {
     const { token, setToken, removeToken } = useToken();
@@ -116,9 +118,9 @@ export default function App() {
                         }
                     />
                     <Route path="*" element={<NotFound />} />
-                    {/* <Route path="kidsMenu" element={<KidsMenu />} />
-                    <Route path="normalMenu" element={<NormalMenu />} />
-                    <Route path="vegetarianMenu" element={<VegetarianMenu />} /> */}
+                    <Route path="menu/:id" element={<Menu />} />
+                    <Route path="normalMenu" element={<KidsMenu />} />
+                    {/* <Route path="vegetarianMenu" element={<VegetarianMenu />} /> */}
                 </Route>
                 <Route path="login" element={<Login setToken={setToken} />} />
             </Routes>
