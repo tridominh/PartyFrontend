@@ -9,6 +9,19 @@ import './room.css';
 function AdminRoom(){
     let navigate = useNavigate();
 
+    const [filterPrice, setFilterPrice] = useState(null);
+    const handleFilterPrice = (event) => {
+        const value = event.target.value;
+        setFilterPrice(value);
+    };
+    const filterRoomsByPrice = (rooms, filterPrice) => {
+        if (!filterPrice) {
+            return rooms;
+        }
+    
+        return rooms.filter(room => room.price <= filterPrice);
+    };
+
     const CheckLogin = () =>{
         if(useToken().token != null){
         
@@ -53,7 +66,6 @@ function AdminRoom(){
         }
       }
       
-
     const confirmDeleteDialog = (
         <div className="confirm-delete-dialog">
             <p>Are you sure?</p>
@@ -69,10 +81,23 @@ function AdminRoom(){
         </Fragment>
     )
 
+    const filteredRooms = filterRoomsByPrice(rooms, filterPrice);
+
     return( 
         <Fragment>
             <PageHeader title={"Room"}/>
             {confirmDelete && confirmDeleteDialog}
+            <div className="filter-container">
+                <br />
+                <label htmlFor="priceFilter">Filter by Price:</label>
+                <select id="priceFilter" onChange={handleFilterPrice}>
+                    <option value="">All</option>
+                    <option value="100">Less than 100 VND</option>
+                    <option value="200">Less than 200 VND</option>
+                    <option value="300">Less than 300 VND</option>
+                    <option value="500">Less than 500 VND</option>
+                </select>
+            </div>
             <div className="food">
                 <div className="create-room-btn">
                     <Link className='room-book-btn' to="/admin/create-room">Create</Link> 
@@ -81,23 +106,21 @@ function AdminRoom(){
                 </br>
                 <br></br>
                 <div className='row align-items-center'>
-                    {rooms.map(room => {  
-                        return (
-                            <div className="col-md-4" key={room.roomId}>
-                                <div className="food-item">
-                                    <RoomCarousel room={room}/>
-                                    <h2>{room.roomNumber}</h2>
-                                    <strong className='room-price-text'>{`Price: $${room.price}`}</strong>
-                                    <strong className='room-price-text'>{`Status: ${room.roomStatus}`}</strong>
-                                    <strong className='room-price-text'>{`Capacity: ${room.capacity}`}</strong>
-                                    <br></br>
-                                    <Link className='room-book-btn' to={`/admin/edit-room/${room.roomId}`}>Update</Link> 
-                                    <Link className='room-book-btn' onClick={() => {setRoomToDelete(room); setConfirmDelete(true);}}>Delete</Link>
-                                    <Link className='room-book-btn' to={`/Booking/${room.roomId}`}>View</Link>
-                                </div>
-                            </div>
-                        )
-                    })}
+                {filteredRooms.map(room => (
+                    <div className="col-md-4" key={room.roomId}>
+                        <div className="food-item">
+                            <RoomCarousel room={room}/>
+                            <h2>{room.roomNumber}</h2>
+                            <strong className='room-price-text'>{`Price: $${room.price}`}</strong>
+                            <strong className='room-price-text'>{`Status: ${room.roomStatus}`}</strong>
+                            <strong className='room-price-text'>{`Capacity: ${room.capacity}`}</strong>
+                            <br></br>
+                            <Link className='room-book-btn' to={`/admin/edit-room/${room.roomId}`}>Update</Link> 
+                            <Link className='room-book-btn' onClick={() => {setRoomToDelete(room); setConfirmDelete(true);}}>Delete</Link>
+                            <Link className='room-book-btn' to={`/Booking/${room.roomId}`}>View</Link>
+                        </div>
+                    </div>
+                ))}
                 </div>
             </div>
         </Fragment>

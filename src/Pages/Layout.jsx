@@ -74,19 +74,19 @@ function Layout({ token, removeToken, role }) {
                                         </Link>
                                         <div className="dropdown-menu">
                                             <Link
-                                                to="/VegetarianMenu"
+                                                to="/menu/vegetarian"
                                                 className="dropdown-item"
                                             >
                                                 Vegetarian Menu
                                             </Link>
                                             <Link
-                                                to="/NormalMenu"
+                                                to="/menu/normal"
                                                 className="dropdown-item"
                                             >
                                                 Normal Menu
                                             </Link>
                                             <Link
-                                                to="/KidsMenu"
+                                                to="/menu/kids"
                                                 className="dropdown-item"
                                             >
                                                 Kids Menu
@@ -178,3 +178,4 @@ function Layout({ token, removeToken, role }) {
 }
 
 export default Layout;
+

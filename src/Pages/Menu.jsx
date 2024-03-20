@@ -1,13 +1,12 @@
 /** @format */
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import PageHeader from "../Components/PageHeader";
 import "../assets/css/kidsMenu.css";
 import { Link } from "react-router-dom";
 import { FoodDisplay } from "../Components/FoodDisplay";
 import { Packages } from "./PackagesData";
 import { useParams } from "react-router-dom";
-import NotFound from "./NotFound";
 
 export default function Menu() {
     const { id } = useParams();
@@ -16,10 +15,6 @@ export default function Menu() {
         return menu;
     }
     const [menu, setMenu] = useState(getMenu())
-    useEffect(() => {
-        setMenu(getMenu())
-    }, [id])
-    if(!menu) return (<NotFound/>);
     return (
         <>
             <PageHeader title={menu.name} />

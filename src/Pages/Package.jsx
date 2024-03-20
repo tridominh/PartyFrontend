@@ -1,123 +1,64 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PageHeader from '../Components/PageHeader';
+import { GetAllPackages } from '../Services/ApiServices/PackageServices';
 
-import PageHeader from "../Components/PageHeader";
-import {
-    GetAllPackages,
-    DeletePackage,
-} from "../Services/ApiServices/PackageServices";
-import LoadingSpinner from "../Components/LoadingSpinner";
-import CreateButton from "../Components/LinkButton";
-import { useNavigate } from "react-router-dom";
-import "../AdminPages/Package.css";
-import LinkButton from "../Components/LinkButton";
-
-function Package() {
-    const [isLoading, setIsLoading] = useState(false);
+function Package(){
     const [packages, setPackages] = useState([]);
-    const [packageToDelete, setPackageToDelete] = useState(null);
-    const [confirmDelete, setConfirmDelete] = useState(false);
+    let navigate = useNavigate();
 
-    const navigate = useNavigate();
+    const fetchPackages = async () => {
+        const data = await GetAllPackages();
+        const json = await data.json();
+        //console.log(json);
+        setPackages(json);
+    }
 
     useEffect(() => {
-        setIsLoading(true);
+        fetchPackages();
+    }, [])
 
-        const fetchAllPackages = async () => {
-            try {
-                const response = await GetAllPackages();
-                setPackages(response);
-            } catch (error) {
-                console.error("Error fetching packages:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchAllPackages();
-    }, []);
-
-    const handleDeletePackage = async (item) => {
-        if (packageToDelete) {
-            try {
-                console.log(`Deleting package ${packageToDelete.packageId}`);
-
-                const response = await DeletePackage(item.packageId);
-
-                const packages = await GetAllPackages();
-                setPackages(packages);
-
-                // setPackages((prevPackages) =>
-                //     prevPackages.filter(
-                //         (pkg) => pkg.packageId !== packageToDelete.packageId
-                //     )
-                // );
-            } catch (error) {
-                console.error("Error deleting package:", error);
-            } finally {
-                setPackageToDelete(null);
-                setConfirmDelete(false);
-            }
-        }
-    };
-
-    const confirmDeleteDialog = (
-        <div className="confirm-delete-dialog">
-            <p>Are you sure you want to delete this package?</p>
-            <button onClick={() => handleDeletePackage(packageToDelete)}>
-                Yes
-            </button>
-            <button onClick={() => setConfirmDelete(false)}>No</button>
-        </div>
-    );
-
-    return (
+    if(packages.length == 0){
+        return (
+            <Fragment>
+                <PageHeader title={"Package"}/>
+                <div>No Packages</div>
+            </Fragment>
+        )
+    }
+    
+    return( 
         <Fragment>
-            <PageHeader title={"Package"} />
-            {confirmDelete && confirmDeleteDialog}
-
-            <table className="package-table">
-                {" "}
-                {}
-                <thead>
+            <PageHeader title={"Package"}/>
+            <div>{JSON.stringify(packages)}</div>
+               <table className="table host-table ">
+                  <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Package Name</th>
-                        <th scope="col">Package Type</th>
-                        <th colSpan="2" scope="col">
-                            Action
-                        </th>{" "}
-                        {}
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Room</th>
+                      <th scope="col">Party Time</th>
+                      <th scope="col">Party End Time</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Total Price</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
                     </tr>
-                </thead>
-                <tbody>
-                    {packages.map((item) => (
-                        <tr key={item.packageId}>
-                            <td>{item.packageId}</td>
-                            <td>{item.packageName}</td>
-                            <td>{item.packageType}</td>
-                            <td>
-                                <button
-                                    className="delete-btn"
-                                    onClick={() => {
-                                        setPackageToDelete(item);
-                                        setConfirmDelete(true);
-                                    }}
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                            <td>
-                                <LinkButton
-                                    link={`/admin/update-package/${item.packageId}`}
-                                    text="Update"
-                                />
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <br></br>
-            <LinkButton link="/admin/create-package" text="Create Package" />
+                  </thead>
+                  <tbody>
+                    {packages.map((item) => {
+                        return (
+                            <tr>
+                                <td>{item.packageId}</td>
+                                <td>{item.packageName}</td>
+                                <td>{item.packageType}</td>
+                            </tr>
+                        )
+                    })}
+                  </tbody>
+                </table>
+ 
+            <div>Package</div>
         </Fragment>
     );
 }

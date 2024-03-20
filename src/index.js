@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -7,7 +7,7 @@ import Layout from "./Pages/Layout";
 import Home from "./Pages/Home";
 import Booking from "./Pages/Booking";
 import NotFound from "./Pages/NotFound";
-import Login from "./Pages/Login";
+import Login from './Pages/Login';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import useToken from "./Services/useToken";
 import About from "./Pages/About";
@@ -19,11 +19,14 @@ import VegetarianMenu from "./Pages/VegetarianMenu";
 import PrivateRoute from "./Services/PrivateRoute";
 import parseJwt from "./Services/parseJwt";
 import AdminBooking from "./AdminPages/Booking";
+import AdminPackage from "./AdminPages/Package";
 import ConfirmBooking from "./HostPages/ConfirmBooking";
 import Room from "./Pages/Room";
 import HostPayment from "./HostPages/HostPayment";
 import Payment from "./Pages/Payment";
 import MyBooking from "./Pages/MyBooking";
+import PaymentComplete from "./Pages/PaymentCompleted";
+import PackagesPage from "./Pages/Packages";
 import AdminRoom from "./AdminPages/AdminRoom";
 import EditRoom from "./AdminPages/EditRoom";
 import PaymentComplete from "./Pages/PaymentCompleted";
@@ -32,6 +35,10 @@ import UpdatePackageForm from "./AdminPages/UpdatePackageForm";
 import CreatePackageForm from "./AdminPages/CreatePackageForm";
 import UpdateServiceForm from "./AdminPages/UpdateServiceForm";
 import CreateServiceForm from "./AdminPages/CreateServiceForm";
+import { CreateRoom } from "./Services/ApiServices/RoomServices";
+import CreateRoomPage from "./AdminPages/CreateRoom";
+import KidsMenu from "./Pages/NormalMenu";
+import Menu from "./Pages/KidsMenu";
 
 export default function App() {
     const { token, setToken, removeToken } = useToken();
@@ -54,7 +61,8 @@ export default function App() {
                     <Route index element={<Home />} />
                     <Route path="about" element={<About />} />
                     <Route path="room" element={<Room />} />
-                    <Route path="package" element={<Package />} />
+                    {/* <Route path="package" element={<Package />} /> */}
+                    <Route path="package" element={<PackagesPage />} />
                     <Route path="booking" element={<Booking />}>
                         <Route path=":id" element={<Booking />} />
                     </Route>
@@ -62,10 +70,7 @@ export default function App() {
                     <Route path="payment" element={<Payment />}>
                         <Route path=":payType/:id" element={<Payment />} />
                     </Route>
-                    <Route
-                        path="payment-completed"
-                        element={<PaymentComplete />}
-                    />
+                    <Route path="payment-completed" element={<PaymentComplete/>} />
                     {/*Admin pages*/}
                     <Route
                         path="admin/booking"
@@ -79,23 +84,7 @@ export default function App() {
                         path="admin/package"
                         element={
                             <PrivateRoute role="Admin">
-                                <Package />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="admin/create-package"
-                        element={
-                            <PrivateRoute role="Admin">
-                                <CreatePackageForm />
-                            </PrivateRoute>
-                        }
-                    />
-                    <Route
-                        path="admin/update-package/:id"
-                        element={
-                            <PrivateRoute role="Admin">
-                                <UpdatePackageForm />
+                                <AdminPackage />
                             </PrivateRoute>
                         }
                     />
@@ -114,7 +103,7 @@ export default function App() {
                         path="admin/create-room"
                         element={
                             <PrivateRoute role="Admin">
-                                <CreateRoom/>
+                                <CreateRoomPage/>
                             </PrivateRoute>
                         }
                     />
@@ -161,13 +150,10 @@ export default function App() {
                             </PrivateRoute>
                         }
                     />
-
-
-                    
-                    <Route path="kidsMenu" element={<KidsMenu />} />
-                    <Route path="normalMenu" element={<NormalMenu />} />
-                    <Route path="vegetarianMenu" element={<VegetarianMenu />} />
                     <Route path="*" element={<NotFound />} />
+                    <Route path="menu/:id" element={<Menu />} />
+                    <Route path="normalMenu" element={<KidsMenu />} />
+                    {/* <Route path="vegetarianMenu" element={<VegetarianMenu />} /> */}
                 </Route>
                 <Route path="login" element={<Login setToken={setToken} />} />
             </Routes>
@@ -175,7 +161,7 @@ export default function App() {
     );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function

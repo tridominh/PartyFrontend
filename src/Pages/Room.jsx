@@ -17,6 +17,21 @@ function Room(){
         }
     };
 
+    const [filterPrice, setFilterPrice] = useState(null);
+    const handleFilterPrice = (event) => {
+        const value = event.target.value;
+        setFilterPrice(value);
+    };
+    const filterRoomsByPrice = (rooms, filterPrice) => {
+        if (!filterPrice) {
+            return rooms;
+        }
+    
+        return rooms.filter(room => room.price <= filterPrice);
+    };
+    
+    
+
     const [rooms, setRooms] = useState(null);
 
 
@@ -24,8 +39,15 @@ function Room(){
         const data = await GetAllRooms();
         const json = await data.json();
         console.log(json);
-        setRooms(json);
-    }, [])
+    
+        let filteredRooms = json;
+    
+        if (filterPrice) {
+            filteredRooms = json.filter(room => room.price <= filterPrice);
+        }
+    
+        setRooms(filteredRooms);
+    }, [filterPrice]);
 
     useEffect(() => {
         fetchData();
@@ -43,6 +65,17 @@ function Room(){
         <Fragment>
             <PageHeader title={"Room"}/>
             {/*<div>{JSON.stringify(rooms)}</div>*/}
+            <div className="filter-container">
+                <br></br>
+            <label htmlFor="priceFilter">Filter by Price:</label>
+            <select id="priceFilter" onChange={handleFilterPrice}>
+                <option value="">All</option>
+                <option value="100">Less than 100 VND</option>
+                <option value="200">Less than 200 VND</option>
+                <option value="300">Less than 300 VND</option>
+                <option value="500">Less than 500 VND</option>
+            </select>
+        </div>
             <div className="food row align-items-center">
                 {rooms.map(room => {
                     return (

@@ -1,13 +1,175 @@
+/*******************************/
+/********* General CSS *********/
+/*******************************/
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    color: #757575;
+    background: #ffffff;
+    font-family: 'open sans', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1,
+h2, 
+h3, 
+h4,
+h5, 
+h6 {
+    color: #454545;
+    font-family: 'Nunito', sans-serif;
 }
+
+a {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: #fbaf32;
+    transition: .3s;
+}
+
+a:hover,
+a:active,
+a:focus {
+    color: #719a0a;
+    outline: none;
+    text-decoration: none;
+}
+
+.btn.custom-btn {
+    padding: 12px 25px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #fbaf32;
+    border: 2px solid #fbaf32;
+    border-radius: 5px;
+    transition: .5s;
+}
+
+.btn.custom-btn:hover {
+    color: #fbaf32;
+    background: transparent;
+}
+
+.btn.custom-btn:focus,
+.form-control:focus,
+.custom-select:focus {
+    box-shadow: none;
+}
+
+.container-fluid {
+    max-width: 1366px;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    background: #fbaf32;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    line-height: 1;
+    font-size: 22px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 5px;
+    transition: background 0.5s;
+    z-index: 9;
+}
+
+.back-to-top i {
+    color: #ffffff;
+    padding-top: 10px;
+}
+
+.back-to-top:hover {
+    background: #719a0a;
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+    font-size: inherit;
+    margin-left: 0;
+}
+
+.notification-container{
+    width: 300px;
+    position: fixed;
+    top: 14%;
+    left: 80%;
+    color: white;
+}
+
+.notification{
+    opacity: 0.8;
+    border-radius: 5px;
+    border: 1px solid;
+    cursor: pointer;
+    position: relative;
+    left: 0%;
+    transition: left 1s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+}
+
+.notification:active{
+    left: 100%;
+}
+
+.notification-info{
+    background: #0074D9;
+}
+
+.notification-success{
+    background: #61AB61;
+}
+
+.notification-warning{
+    background: #F99E1E;
+}
+
+.notification-error{
+    background: #C34A43;
+}
+
+.notification-message{
+    padding: 10px;
+}
+
+.notification-message .message{
+    display: flex;
+    font-size: 15px;
+}
+
+.notification-message .title{
+    margin: 0;
+    color: white;
+    font-size: 18px;
+    margin-left: 25px;
+}
+
+.notification-info .notification-message .message::before{
+    content: "\e88e";
+    font-family: "Material Icons";
+    margin-right: 10px;
+ }
+
+.notification-success .notification-message .message::before{
+    content: "\e86c";
+    font-family: "Material Icons";
+    margin-right: 10px;
+ }
+
+.notification-warning .notification-message .message::before{
+    content: "\e002";
+    font-family: "Material Icons";
+    margin-right: 10px;
+ }
+
+ .notification-error .notification-message .message::before{
+    content: "\e5c9";
+    font-family: "Material Icons";
+    margin-right: 10px;
+ }
+
+.notification-message > * {
+    display: inline-block;
+}
+
+

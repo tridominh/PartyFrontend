@@ -102,9 +102,9 @@ export {
     CreateBooking,
     GetAllBookings,
     GetBooking,
+    GetAllOngoingBookings,
     GetAllPendingBookings,
     UpdateStatusBooking,
     GetAllBookingsByUserId,
-    GetAllOngoingBookingsByUserId,
-    GetAllOngoingBookings
+    GetAllOngoingBookingsByUserId
 };
