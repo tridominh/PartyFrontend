@@ -82,7 +82,24 @@ export default function App() {
                         path="admin/package"
                         element={
                             <PrivateRoute role="Admin">
-                                <AdminPackage />
+                                <Package/>
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="admin/create-package"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <CreatePackageForm/>
+                            </PrivateRoute>
+                        }
+                    />
+
+                    <Route
+                        path="admin/update-package/:id"
+                        element={
+                            <PrivateRoute role="Admin">
+                                <UpdatePackageForm/>
                             </PrivateRoute>
                         }
                     />
