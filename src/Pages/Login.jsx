@@ -230,26 +230,7 @@ function Login({ setToken }) {
                         </div>
                     </div>
                 </div>
-                <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                  
-
-                  <div className="login-form form px-4">
-                    <form onSubmit={handleRegisterSubmit}>
-                    <input type="text" name="" className="form-control" placeholder="Name" onChange={(e) => setNameRegister(e.target.value)}/>
-
-                    <input type="text" name="" className="form-control" placeholder="Email" onChange={(e) => setEmailRegister(e.target.value)}/>
-
-            {/*<input type="text" name="" className="form-control" placeholder="Phone" onChange={(e) => e.setPass}/>*/}
-
-                    <input type="password" name="" className="form-control" placeholder="Password" onChange={(e) => setPasswordRegister(e.target.value)}/>
-
-                    {errorMessageRegister && <div className='text-danger'>{errorMessageRegister}</div>}
-                    <button className="btn login-btn-dark btn-dark btn-block">Signup</button>
-                    </form>
-
-                  </div>
-
-                </div>
+                
                 
                </div>
         </Fragment>      

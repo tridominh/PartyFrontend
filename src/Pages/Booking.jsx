@@ -66,7 +66,6 @@ function Booking(){
             }
 
             // Handle successful response data
-            setErrorMsg("");
             // const data = await res.json();
             // process the data as needed
 
@@ -117,7 +116,7 @@ function Booking(){
     };
 
     useEffect(() => {
-        if(errorMsg != "")
+        if(errorMsg != null)
             createHeaderNotification("error", errorMsg ,"Error");
     }, [errorMsg])
 
@@ -209,7 +208,9 @@ function Booking(){
             </div>
         </div>
     </div>
+    
     <NotificationContainer/>
+    
     </Fragment>
     );
 }

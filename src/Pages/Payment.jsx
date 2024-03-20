@@ -82,7 +82,7 @@ function Payment() {
     if(!payType || !id)
         return <NotFound/>
 
-    if(!booking || !booking.user || !booking.room || booking.bookingServices.length == 0)
+    if(!booking || !booking.user || !booking.room)
         return <NotFound/>
 
     return (
