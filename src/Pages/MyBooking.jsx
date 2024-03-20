@@ -9,10 +9,20 @@ import useToken from "../Services/useToken";
 function MyBooking() {
     const navigate = useNavigate();
     const token = useToken().token;
-    const [bookings, setBookings] = useState(null);
+    const [bookings, setBookings] = useState([]);
     const [onGoing, setOnGoing] = useState([]);
+    const [completed, setCompleted] = useState([]);
     const [outdatedAndRejeted, setOutdatedAndRejected] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
+
+    let userId = null;
+    if(token) userId = parseInt(parseJwt(token).nameid);
+
+    const fetchBookings = async () => {
+        const data = await GetAllBookingsByUserId(userId);
+        const json = await data.json();
+        setBookings(json);
+    }
 
     const CheckLogin = () => {
         if (!token) {
@@ -20,41 +30,48 @@ function MyBooking() {
         }
     };
 
-    useEffect(() => CheckLogin(), [])
-
-    let userId = null;
-    if(token) userId = parseInt(parseJwt(token).nameid);
-
-    const fetchBookings = useCallback(async () => {
-        const data = await GetAllBookingsByUserId(userId);
-        const json = await data.json();
-        setBookings(json);
-    }, [])
-
     const payFullPrice = (e) => {
         e.preventDefault();
-        navigate("/payment");
+        const button = e.target;
+        const id = button.getAttribute("data-id");
+        navigate(`/payment/fullprice/${id}`);
     };
 
     const payDeposit = (e) => {
         e.preventDefault();
-        navigate("/payment");
+        const button = e.target;
+        const id = button.getAttribute("data-id");
+        navigate(`/payment/deposit/${id}`);
     };
+
+
+    useEffect(() => CheckLogin(), [])
 
     useEffect(() => {
         fetchBookings();
-        bookings && setOnGoing(
-            bookings.filter(booking => booking.bookingStatus == "Accepted" && 
-                new Date(booking.partyDateTime) >= new Date()));
-        bookings && setOutdatedAndRejected(
-            bookings.filter(booking => (booking.bookingStatus == "Accepted" && 
-                new Date(booking.partyDateTime) < new Date()) ||
-                booking.bookingStatus == "Rejected"));
-
     }
-    , [fetchBookings, bookings])
+    , [])
 
-    if(!bookings) 
+    useEffect(() => {
+        setOnGoing(
+            bookings.filter(booking => (booking.bookingStatus == "Accepted" ||
+                booking.bookingStatus == "Pending" ||
+                booking.bookingStatus == "DepositPaying" ||
+                booking.bookingStatus == "Deposit" ||
+                booking.bookingStatus == "FullPaying") && 
+                new Date(booking.partyDateTime) >= new Date()));
+        setCompleted(
+            bookings.filter(booking => booking.bookingStatus == "Paid")
+        )
+        setOutdatedAndRejected(
+            bookings.filter(booking => (booking.bookingStatus != "Paid") &&
+                new Date(booking.partyDateTime) < new Date())
+        )
+    }
+    , [bookings])
+
+
+    if(bookings.length == 0) 
     return (
         <Fragment>
             <PageHeader title1="Home" title={"My Booking"}/>
@@ -73,12 +90,12 @@ function MyBooking() {
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">User</th>
+                      <th scope="col">Name</th>
                       <th scope="col">Room</th>
-                      <th scope="col">Booking Time</th>
                       <th scope="col">Party Time</th>
+                      <th scope="col">Party End Time</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Feedback</th>
+                      <th scope="col">Total Price</th>
                       <th scope="col"></th>
                       <th scope="col"></th>
                     </tr>
@@ -89,12 +106,39 @@ function MyBooking() {
                           <th scope="row">{booking.bookingId}</th>
                           <td>{booking.userId}</td>
                           <td>{booking.roomId}</td>
-                          <td>{new Date(booking.bookingDate).toLocaleString()}</td>
                           <td>{new Date(booking.partyDateTime).toLocaleString()}</td>
+                          <td>{new Date(booking.partyEndTime).toLocaleString()}</td>
                           <td>{booking.bookingStatus}</td>
-                          <td>{booking.feedback}</td>
-                          <td><button onClick={(e) => payFullPrice(e)} data-id={booking.bookingId} className="btn btn-success">Pay now!!!</button></td>
-                          <td><button onClick={(e) => payDeposit(e)} data-id={booking.bookingId} className="btn btn-danger">Pay deposit</button></td>
+                          <td>{booking.totalPrice}</td>
+                          <td>{(booking.bookingStatus == "Accepted" || booking.bookingStatus == "Deposit") && <button onClick={(e) => payFullPrice(e)} data-id={booking.bookingId} className="btn btn-success">Pay now!!!</button>}</td>
+                          <td>{(booking.bookingStatus == "Accepted" || booking.bookingStatus == "Deposit") && <button onClick={(e) => payDeposit(e)} data-id={booking.bookingId} className="btn btn-danger">Pay deposit</button>}</td>
+                        </tr>)
+                    })}
+                  </tbody>
+                </table>
+                <h3 className="text-success">Completed</h3>
+                <table className="table host-table ">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Room</th>
+                      <th scope="col">Party Time</th>
+                      <th scope="col">Party End Time</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Total Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {completed.map(booking => {
+                       return (<tr>
+                          <th scope="row">{booking.bookingId}</th>
+                          <td>{booking.userId}</td>
+                          <td>{booking.roomId}</td>
+                          <td>{new Date(booking.partyDateTime).toLocaleString()}</td>
+                          <td>{new Date(booking.partyEndTime).toLocaleString()}</td>
+                          <td>{booking.bookingStatus}</td>
+                          <td>{booking.totalPrice}</td>
                         </tr>)
                     })}
                   </tbody>
@@ -104,12 +148,12 @@ function MyBooking() {
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">User</th>
+                      <th scope="col">Name</th>
                       <th scope="col">Room</th>
-                      <th scope="col">Booking Time</th>
                       <th scope="col">Party Time</th>
+                      <th scope="col">Party End Time</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Feedback</th>
+                      <th scope="col">Total Price</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -118,10 +162,10 @@ function MyBooking() {
                           <th scope="row">{booking.bookingId}</th>
                           <td>{booking.userId}</td>
                           <td>{booking.roomId}</td>
-                          <td>{new Date(booking.bookingDate).toLocaleString()}</td>
                           <td>{new Date(booking.partyDateTime).toLocaleString()}</td>
+                          <td>{new Date(booking.partyEndTime).toLocaleString()}</td>
                           <td>{booking.bookingStatus}</td>
-                          <td>{booking.feedback}</td>
+                          <td>{booking.totalPrice}</td>
                         </tr>)
                     })}
                   </tbody>
